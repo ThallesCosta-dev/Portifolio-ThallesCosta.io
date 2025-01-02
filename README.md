@@ -37,7 +37,7 @@ Acesse o projeto em funcionamento: [Link do Projeto](https://seu-usuario.github.
   - Typed.js
 
 ## 📦 Estrutura do Projeto
-├── assets/
+ ```├── assets/
 │ ├── css/
 │ ├── img/
 │ ├── js/
@@ -47,6 +47,7 @@ Acesse o projeto em funcionamento: [Link do Projeto](https://seu-usuario.github.
 ├── portfolio-details.html
 ├── service-details.html
 └── starter-page.html
+```
 
 ## 📄 Páginas
 
