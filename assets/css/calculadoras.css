@@ -1,0 +1,38 @@
+.container {
+    max-width: 600px;
+}
+
+.card {
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+.result-text {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #28a745;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 10px;
+    font-weight: 500;
+}
+
+#result {
+    display: none;
+}
+
+#result.show {
+    display: block;
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+} 

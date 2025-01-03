@@ -145,11 +145,17 @@ h6 {
   border-right: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
-.header .profile-img img {
+.header .profile-img {
   margin: 15px auto;
   display: block;
   width: 120px;
-  border: 8px solid color-mix(in srgb, var(--default-color), transparent 85%);
+}
+
+.header .profile-img img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: none;
 }
 
 .header .logo {
@@ -1268,4 +1274,8 @@ section,
   height: auto; /* Mantém a proporção da imagem */
   border-radius: 10px; /* Bordas levemente arredondadas */
   object-fit: cover; /* Cobre o contêiner sem distorcer a imagem */
+}
+
+.text-center {
+  text-align: center; /* Centraliza o texto */
 }

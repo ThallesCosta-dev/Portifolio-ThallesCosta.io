@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Métricas Digitais</title>
+    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <style>
+        body {
+            background-color: #040b14;
+            color: #fff;
+            font-family: "Open Sans", sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 40px;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1);
+        }
+
+        .logo img {
+            max-width: 120px;
+            height: auto;
+            filter: drop-shadow(0 0 10px rgba(20, 157, 221, 0.3));
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px;
+            background: linear-gradient(145deg, rgba(20, 157, 221, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .page-title h1 {
+            font-size: 48px;
+            font-weight: 800;
+            color: #149ddd;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .page-title p {
+            color: #fff;
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+            padding: 20px;
+        }
+
+        .metric-button {
+            background: rgba(20, 157, 221, 0.1);
+            color: #fff;
+            text-decoration: none;
+            padding: 25px 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(20, 157, 221, 0.3);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 90px;
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(20, 157, 221, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .metric-button:hover::before {
+            left: 100%;
+        }
+
+        .metric-button:hover {
+            background: rgba(20, 157, 221, 0.2);
+            transform: translateY(-5px);
+            color: #fff;
+            box-shadow: 0 8px 25px rgba(20, 157, 221, 0.3);
+        }
+
+        .suggestion-section {
+            text-align: center;
+            margin: 80px auto;
+            padding: 50px 30px;
+            background: linear-gradient(145deg, rgba(20, 157, 221, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 20px;
+            max-width: 800px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .suggestion-section h2 {
+            font-size: 32px;
+            color: #149ddd;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .suggestion-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 20px;
+            padding: 15px 40px;
+            background: rgba(20, 157, 221, 0.2);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: 1px solid rgba(20, 157, 221, 0.3);
+        }
+
+        .suggestion-link:hover {
+            background: rgba(20, 157, 221, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(20, 157, 221, 0.4);
+        }
+
+        .social-links {
+            text-align: center;
+            margin: 60px auto;
+            padding: 40px;
+            background: linear-gradient(145deg, rgba(20, 157, 221, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 20px;
+            max-width: 600px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .social-links a {
+            color: #fff;
+            font-size: 26px;
+            margin: 0 20px;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+            display: inline-block;
+        }
+
+        .social-links a:hover {
+            color: #149ddd;
+            opacity: 1;
+            transform: translateY(-5px);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .footer .copyright {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer .copyright span {
+            opacity: 0.8;
+        }
+
+        .footer .copyright strong {
+            color: #149ddd;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .page-title {
+                padding: 30px 20px;
+            }
+
+            .page-title h1 {
+                font-size: 36px;
+            }
+
+            .metrics-grid {
+                gap: 15px;
+                padding: 10px;
+            }
+
+            .metric-button {
+                padding: 20px;
+                font-size: 14px;
+                min-height: 80px;
+            }
+
+            .suggestion-section {
+                padding: 30px 20px;
+            }
+
+            .suggestion-section h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="assets/img/logo.png" alt="Calculadora de Mídia">
+        </div>
+
+        <div class="page-title">
+            <h1><span id="typed"></span></h1>
+            <p>Clique na métrica de marketing digital que você deseja calcular:</p>
+        </div>
+
+        <div class="metrics-grid">
+            <a href="cpa.html" class="metric-button">CPA - Custo Por Aquisição</a>
+            <a href="cpc.html" class="metric-button">CPC - Custo por Clique</a>
+            <a href="cpl.html" class="metric-button">CPL - Custo Por Lead</a>
+            <a href="cpm.html" class="metric-button">CPM - Custo Por Mil impressões</a>
+            <a href="ctr.html" class="metric-button">CTR - Click Through Rate</a>
+            <a href="cpi.html" class="metric-button">CPI - Custo por Impressão</a>
+            <a href="cpv.html" class="metric-button">CPV - Custo Por Visualização</a>
+            <a href="roas.html" class="metric-button">ROAS - Return On Advertising Spend</a>
+            <a href="roi.html" class="metric-button">ROI - Return On Investment</a>
+            <a href="rpm.html" class="metric-button">RPM - Receita por Mil Impressões</a>
+            <a href="taxa-visualizacao.html" class="metric-button">Taxa de Visualização</a>
+            <a href="taxa-conversao.html" class="metric-button">Taxa de Conversão / Conversion Rate</a>
+            <a href="ticket-medio.html" class="metric-button">Ticket Médio</a>
+            <a href="ltv.html" class="metric-button">LTV/CLV - Lifetime Value</a>
+        </div>
+
+        <div class="suggestion-section">
+            <h2>VOCÊ GOSTARIA DE OUTRAS MÉTRICAS?</h2>
+            <a href="#" class="suggestion-link">DEIXE SUA SUGESTÃO >AQUI<</a>
+        </div>
+
+        <div class="social-links">
+            <a href="#"><i class="bi bi-tiktok"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+        </div>
+
+        <footer id="footer" class="footer position-relative light-background">
+            <div class="container">
+                <div class="copyright text-center">
+                    <p>© <span>Copyright</span> <strong class="px-1 sitename">Thalles Costa 2025</strong> <span>Todos os direitos reservados</span></p>
+                </div>
+                <div class="credits">
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        var typed = new Typed('#typed', {
+            strings: ['MÉTRICAS DIGITAIS'],
+            typeSpeed: 100,
+            backSpeed: 50,
+            loop: false,
+            showCursor: true,
+            cursorChar: '|',
+            autoInsertCss: true,
+            onComplete: (self) => {
+                setTimeout(() => {
+                    self.cursor.style.display = 'none';
+                }, 1500);
+            }
+        });
+    </script>
+</body>
+</html> 

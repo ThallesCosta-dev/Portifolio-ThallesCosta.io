@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora CPC - Custo Por Clique</title>
+    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <style>
+        body {
+            background-color: #040b14;
+            color: #fff;
+            font-family: "Open Sans", sans-serif;
+        }
+        
+        .calculator-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .calculator-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 30px;
+            color: #fff;
+        }
+
+        .calculator-title {
+            color: #fff;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .calculator-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .calculator-tab {
+            background: rgba(20, 157, 221, 0.1);
+            color: #fff;
+            border: 1px solid rgba(20, 157, 221, 0.3);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+        }
+
+        .calculator-tab.active {
+            background: #149ddd;
+        }
+
+        .case-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(20, 157, 221, 0.3);
+            color: #fff;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #149ddd;
+            color: #fff;
+            box-shadow: 0 0 0 0.2rem rgba(20, 157, 221, 0.25);
+        }
+
+        .btn-calculate {
+            background: #149ddd;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-calculate:hover {
+            background: #117db1;
+            transform: translateY(-2px);
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .result-title {
+            color: #fff;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .result-value {
+            color: #149ddd;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .back-button {
+            color: #149ddd;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .back-button:hover {
+            color: #117db1;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .footer .copyright {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer .copyright span {
+            opacity: 0.8;
+        }
+
+        .footer .copyright strong {
+            color: #149ddd;
+        }
+
+        .info-icon {
+            color: #149ddd;
+            font-size: 20px;
+            cursor: help;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <a href="index.html" class="back-button">
+            <i class="bi bi-arrow-left"></i> Voltar para Métricas
+        </a>
+
+        <div class="calculator-card">
+            <div class="calculator-title">
+                <span id="typed"></span>
+                <i class="bi bi-info-circle info-icon" data-bs-toggle="tooltip" data-bs-placement="right" 
+                   title="Como Calcular CPC? Custo ÷ Cliques"></i>
+            </div>
+
+            <div class="calculator-tabs">
+                <button class="calculator-tab active" data-case="1">Caso 1</button>
+                <button class="calculator-tab" data-case="2">Caso 2</button>
+                <button class="calculator-tab" data-case="3">Caso 3</button>
+            </div>
+
+            <div id="case1" class="case-card">
+                <h3 class="case-title">
+                    Caso 1
+                    <i class="bi bi-info-circle info-icon" data-bs-toggle="tooltip" data-bs-placement="right" 
+                       title="Com X Cliques e um Investimento de R$Y, terei um CPC de R$Z."></i>
+                </h3>
+                <form id="cpcCalculator1">
+                    <div class="mb-3">
+                        <label class="form-label">Número de Cliques</label>
+                        <input type="number" class="form-control" id="clicks1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Investimento (R$)</label>
+                        <input type="number" class="form-control" id="investment1" required>
+                    </div>
+                    <button type="submit" class="btn-calculate">Calcular</button>
+                </form>
+                <div id="result1" class="result-card" style="display: none;">
+                    <div class="result-title">CPC</div>
+                    <div class="result-value">R$ <span id="cpcResult1">0.00</span></div>
+                </div>
+            </div>
+
+            <div id="case2" class="case-card" style="display: none;">
+                <h3 class="case-title">
+                    Caso 2
+                    <i class="bi bi-info-circle info-icon" data-bs-toggle="tooltip" data-bs-placement="right" 
+                       title="Com CPC de R$X e um Investimento de R$Y, terei Z Cliques."></i>
+                </h3>
+                <form id="cpcCalculator2">
+                    <div class="mb-3">
+                        <label class="form-label">CPC Desejado (R$)</label>
+                        <input type="number" class="form-control" id="targetCpc2" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Investimento (R$)</label>
+                        <input type="number" class="form-control" id="investment2" required>
+                    </div>
+                    <button type="submit" class="btn-calculate">Calcular</button>
+                </form>
+                <div id="result2" class="result-card" style="display: none;">
+                    <div class="result-title">Cliques</div>
+                    <div class="result-value"><span id="clicksResult">0</span></div>
+                </div>
+            </div>
+
+            <div id="case3" class="case-card" style="display: none;">
+                <h3 class="case-title">
+                    Caso 3
+                    <i class="bi bi-info-circle info-icon" data-bs-toggle="tooltip" data-bs-placement="right" 
+                       title="Com CPC de R$X e uma meta de Y Cliques, o investimento precisará ser de R$Z."></i>
+                </h3>
+                <form id="cpcCalculator3">
+                    <div class="mb-3">
+                        <label class="form-label">CPC Desejado (R$)</label>
+                        <input type="number" class="form-control" id="targetCpc3" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Meta de Cliques</label>
+                        <input type="number" class="form-control" id="targetClicks" required>
+                    </div>
+                    <button type="submit" class="btn-calculate">Calcular</button>
+                </form>
+                <div id="result3" class="result-card" style="display: none;">
+                    <div class="result-title">Investimento Necessário</div>
+                    <div class="result-value">R$ <span id="investmentResult">0.00</span></div>
+                </div>
+            </div>
+        </div>
+
+        <footer id="footer" class="footer">
+            <div class="container">
+                <div class="copyright text-center">
+                    <p>© <span>Copyright</span> <strong class="px-1">Thalles Costa 2025</strong> <span>Todos os direitos reservados</span></p>
+                </div>
+                <div class="credits">
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Typed.js
+        var typed = new Typed('#typed', {
+            strings: ['Calculadora de CPC'],
+            typeSpeed: 100,
+            backSpeed: 50,
+            loop: false,
+            showCursor: true,
+            cursorChar: '|',
+            autoInsertCss: true,
+            onComplete: (self) => {
+                setTimeout(() => {
+                    self.cursor.style.display = 'none';
+                }, 1500);
+            }
+        });
+
+        // Inicializar tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+
+        // Alternar entre casos
+        document.querySelectorAll('.calculator-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.calculator-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                document.querySelectorAll('.case-card').forEach(card => card.style.display = 'none');
+                document.getElementById('case' + this.dataset.case).style.display = 'block';
+            });
+        });
+
+        // Cálculos
+        document.getElementById('cpcCalculator1').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const clicks = parseFloat(document.getElementById('clicks1').value);
+            const investment = parseFloat(document.getElementById('investment1').value);
+            const cpc = investment / clicks;
+            document.getElementById('cpcResult1').textContent = cpc.toFixed(2);
+            document.getElementById('result1').style.display = 'block';
+        });
+
+        document.getElementById('cpcCalculator2').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const targetCpc = parseFloat(document.getElementById('targetCpc2').value);
+            const investment = parseFloat(document.getElementById('investment2').value);
+            const clicks = investment / targetCpc;
+            document.getElementById('clicksResult').textContent = Math.round(clicks);
+            document.getElementById('result2').style.display = 'block';
+        });
+
+        document.getElementById('cpcCalculator3').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const targetCpc = parseFloat(document.getElementById('targetCpc3').value);
+            const targetClicks = parseFloat(document.getElementById('targetClicks').value);
+            const investment = targetCpc * targetClicks;
+            document.getElementById('investmentResult').textContent = investment.toFixed(2);
+            document.getElementById('result3').style.display = 'block';
+        });
+    </script>
+</body>
+</html> 
