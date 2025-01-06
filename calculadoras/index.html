@@ -233,12 +233,37 @@
                 font-size: 24px;
             }
         }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            color: #149ddd;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border: 1px solid rgba(20, 157, 221, 0.3);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .back-button:hover {
+            background: rgba(20, 157, 221, 0.1);
+            transform: translateX(-5px);
+            color: #fff;
+        }
+
+        .back-button i {
+            margin-right: 8px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="logo">
-            <img src="assets/img/logo.png" alt="Calculadora de Mídia">
+            <a href="../index.html">
+                <img src="../assets/img/logo.png" alt="Calculadora de Mídia">
+            </a>
         </div>
 
         <div class="page-title">
