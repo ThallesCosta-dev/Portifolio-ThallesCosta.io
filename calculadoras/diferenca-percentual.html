@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora CPA - Custo Por Aquisição</title>
+    <title>Calculadora de Diferença Percentual</title>
     <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
@@ -157,6 +157,57 @@
             cursor: help;
             margin-left: 8px;
         }
+
+        /* Estilos específicos para o exemplo */
+        .example-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .step-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(20, 157, 221, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(20, 157, 221, 0.3);
+        }
+
+        .step-number {
+            background: #149ddd;
+            color: #fff;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .step p {
+            margin: 0;
+            color: #fff;
+            font-family: monospace;
+            font-size: 1.1em;
+        }
+
+        .result-description {
+            color: #fff;
+            margin-top: 10px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -169,7 +220,7 @@
             <div class="calculator-title">
                 <span id="typed"></span>
                 <i class="bi bi-info-circle info-icon" data-bs-toggle="tooltip" data-bs-placement="right" 
-                   title="Como Calcular CPA? Custo ÷ Conversão"></i>
+                   title="Como Calcular Diferença Percentual? ((Valor Final - Valor Inicial) ÷ Valor Inicial) × 100"></i>
             </div>
 
             <div class="calculator-tabs">
@@ -182,22 +233,51 @@
                 <h3 class="case-title">
                     Caso 1
                     <i class="bi bi-info-circle info-icon" data-bs-toggle="tooltip" data-bs-placement="right" 
-                       title="Com X Conversões e um Investimento de R$Y, terei um CPA de R$Z."></i>
+                       title="De um Valor Inicial X para um Valor Final Y, qual foi a variação percentual?"></i>
                 </h3>
-                <form id="cpaCalculator1">
+                <form id="percentCalculator1">
                     <div class="mb-3">
-                        <label class="form-label">Número de Conversões</label>
-                        <input type="number" step="any" class="form-control" id="conversions1" required>
+                        <label class="form-label">Valor Inicial</label>
+                        <input type="number" step="any" class="form-control" id="initialValue1" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Investimento (R$)</label>
-                        <input type="number" step="any" class="form-control" id="investment1" required>
+                        <label class="form-label">Valor Final</label>
+                        <input type="number" step="any" class="form-control" id="finalValue1" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
                 <div id="result1" class="result-card" style="display: none;">
-                    <div class="result-title">CPA</div>
-                    <div class="result-value">R$ <span id="cpaResult1">0.00</span></div>
+                    <div class="result-title">Diferença Percentual</div>
+                    <div class="result-value"><span id="percentResult1">0.00</span>%</div>
+                    <div class="result-description" id="resultDescription1"></div>
+                    <div class="absolute-difference" id="absoluteDifference1" style="font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 5px;"></div>
+                </div>
+
+                <!-- Seção de exemplo -->
+                <div class="example-section" id="exampleSection" style="display: none;">
+                    <div class="result-title">Cálculo passo a passo</div>
+                    <div class="step-container">
+                        <div class="step">
+                            <span class="step-number">1</span>
+                            <p>Diferença = <span id="exampleStep1"></span></p>
+                        </div>
+                        <div class="step">
+                            <span class="step-number">2</span>
+                            <p>Diferença = <span id="exampleStep2"></span></p>
+                        </div>
+                        <div class="step">
+                            <span class="step-number">3</span>
+                            <p>Diferença percentual = (diferença / valor inicial) * 100</p>
+                        </div>
+                        <div class="step">
+                            <span class="step-number">4</span>
+                            <p>Diferença percentual = <span id="exampleStep4"></span></p>
+                        </div>
+                        <div class="step">
+                            <span class="step-number">5</span>
+                            <p>Diferença percentual = <span id="exampleStep5"></span>%</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -205,22 +285,23 @@
                 <h3 class="case-title">
                     Caso 2
                     <i class="bi bi-info-circle info-icon" data-bs-toggle="tooltip" data-bs-placement="right" 
-                       title="Com CPA de R$X e um Investimento de R$Y, terei Z Conversões."></i>
+                       title="Com uma variação de X% sobre um Valor Inicial Y, qual será o Valor Final?"></i>
                 </h3>
-                <form id="cpaCalculator2">
+                <form id="percentCalculator2">
                     <div class="mb-3">
-                        <label class="form-label">CPA Desejado (R$)</label>
-                        <input type="number" step="any" class="form-control" id="targetCpa2" required>
+                        <label class="form-label">Valor Inicial</label>
+                        <input type="number" step="any" class="form-control" id="initialValue2" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Investimento (R$)</label>
-                        <input type="number" step="any" class="form-control" id="investment2" required>
+                        <label class="form-label">Variação Percentual (%)</label>
+                        <input type="number" step="any" class="form-control" id="percentChange2" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
                 <div id="result2" class="result-card" style="display: none;">
-                    <div class="result-title">Conversões</div>
-                    <div class="result-value"><span id="conversionsResult">0</span></div>
+                    <div class="result-title">Valor Final</div>
+                    <div class="result-value"><span id="finalValueResult">0.00</span></div>
+                    <div class="result-description" id="resultDescription2"></div>
                 </div>
             </div>
 
@@ -228,22 +309,23 @@
                 <h3 class="case-title">
                     Caso 3
                     <i class="bi bi-info-circle info-icon" data-bs-toggle="tooltip" data-bs-placement="right" 
-                       title="Com CPA de R$X e uma meta de Y Conversões, o investimento precisará ser de R$Z."></i>
+                       title="Com uma variação de X% para chegar a um Valor Final Y, qual era o Valor Inicial?"></i>
                 </h3>
-                <form id="cpaCalculator3">
+                <form id="percentCalculator3">
                     <div class="mb-3">
-                        <label class="form-label">CPA Desejado (R$)</label>
-                        <input type="number" step="any" class="form-control" id="targetCpa3" required>
+                        <label class="form-label">Valor Final</label>
+                        <input type="number" step="any" class="form-control" id="finalValue3" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Meta de Conversões</label>
-                        <input type="number" step="any" class="form-control" id="targetConversions3" required>
+                        <label class="form-label">Variação Percentual (%)</label>
+                        <input type="number" step="any" class="form-control" id="percentChange3" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
                 <div id="result3" class="result-card" style="display: none;">
-                    <div class="result-title">Investimento Necessário</div>
-                    <div class="result-value">R$ <span id="investmentResult">0.00</span></div>
+                    <div class="result-title">Valor Inicial</div>
+                    <div class="result-value"><span id="initialValueResult">0.00</span></div>
+                    <div class="result-description" id="resultDescription3"></div>
                 </div>
             </div>
         </div>
@@ -253,8 +335,6 @@
                 <div class="copyright text-center">
                     <p>© <span>Copyright</span> <strong class="px-1">Thalles Costa 2025</strong> <span>Todos os direitos reservados</span></p>
                 </div>
-                <div class="credits">
-                </div>
             </div>
         </footer>
     </div>
@@ -263,7 +343,7 @@
     <script>
         // Typed.js
         var typed = new Typed('#typed', {
-            strings: ['Calculadora de CPA'],
+            strings: ['Calculadora de Diferença Percentual'],
             typeSpeed: 100,
             backSpeed: 50,
             loop: false,
@@ -295,30 +375,63 @@
         });
 
         // Cálculos
-        document.getElementById('cpaCalculator1').addEventListener('submit', function(e) {
+        document.getElementById('percentCalculator1').addEventListener('submit', function(e) {
             e.preventDefault();
-            const conversions = parseFloat(document.getElementById('conversions1').value);
-            const investment = parseFloat(document.getElementById('investment1').value);
-            const cpa = investment / conversions;
-            document.getElementById('cpaResult1').textContent = cpa.toFixed(2);
+            const initialValue = parseFloat(document.getElementById('initialValue1').value);
+            const finalValue = parseFloat(document.getElementById('finalValue1').value);
+            const difference = finalValue - initialValue;
+            const percentChange = (difference / initialValue) * 100;
+
+            // Atualizar resultado percentual
+            document.getElementById('percentResult1').textContent = percentChange.toFixed(2);
+            document.getElementById('resultDescription1').textContent = 
+                percentChange > 0 ? 'Aumento de ' + percentChange.toFixed(2) + '%' :
+                percentChange < 0 ? 'Redução de ' + Math.abs(percentChange).toFixed(2) + '%' :
+                'Sem alteração (0%)';
+
+            // Adicionar diferença absoluta
+            document.getElementById('absoluteDifference1').textContent = 
+                `Diferença absoluta: ${difference > 0 ? '+' : ''}${difference.toFixed(2)}`;
+
             document.getElementById('result1').style.display = 'block';
+
+            // Atualizar o exemplo passo a passo
+            document.getElementById('exampleStep1').textContent = 
+                `${finalValue} - ${initialValue}`;
+            document.getElementById('exampleStep2').textContent = 
+                difference.toFixed(2);
+            document.getElementById('exampleStep4').textContent = 
+                `(${difference.toFixed(2)} / ${initialValue}) * 100`;
+            document.getElementById('exampleStep5').textContent = 
+                percentChange.toFixed(2);
+            
+            // Mostrar a seção de exemplo
+            document.getElementById('exampleSection').style.display = 'block';
         });
 
-        document.getElementById('cpaCalculator2').addEventListener('submit', function(e) {
+        document.getElementById('percentCalculator2').addEventListener('submit', function(e) {
             e.preventDefault();
-            const targetCpa = parseFloat(document.getElementById('targetCpa2').value);
-            const investment = parseFloat(document.getElementById('investment2').value);
-            const conversions = investment / targetCpa;
-            document.getElementById('conversionsResult').textContent = Math.round(conversions);
+            const initialValue = parseFloat(document.getElementById('initialValue2').value);
+            const percentChange = parseFloat(document.getElementById('percentChange2').value);
+            const finalValue = initialValue * (1 + (percentChange / 100));
+            document.getElementById('finalValueResult').textContent = finalValue.toFixed(2);
+            document.getElementById('resultDescription2').textContent = 
+                percentChange > 0 ? `Aumento de ${percentChange}% sobre ${initialValue}` :
+                percentChange < 0 ? `Redução de ${Math.abs(percentChange)}% sobre ${initialValue}` :
+                'Sem alteração';
             document.getElementById('result2').style.display = 'block';
         });
 
-        document.getElementById('cpaCalculator3').addEventListener('submit', function(e) {
+        document.getElementById('percentCalculator3').addEventListener('submit', function(e) {
             e.preventDefault();
-            const targetCpa = parseFloat(document.getElementById('targetCpa3').value);
-            const targetConversions = parseFloat(document.getElementById('targetConversions3').value);
-            const investment = targetCpa * targetConversions;
-            document.getElementById('investmentResult').textContent = investment.toFixed(2);
+            const finalValue = parseFloat(document.getElementById('finalValue3').value);
+            const percentChange = parseFloat(document.getElementById('percentChange3').value);
+            const initialValue = finalValue / (1 + (percentChange / 100));
+            document.getElementById('initialValueResult').textContent = initialValue.toFixed(2);
+            document.getElementById('resultDescription3').textContent = 
+                percentChange > 0 ? `Valor que aumentou ${percentChange}% para chegar a ${finalValue}` :
+                percentChange < 0 ? `Valor que reduziu ${Math.abs(percentChange)}% para chegar a ${finalValue}` :
+                'Sem alteração';
             document.getElementById('result3').style.display = 'block';
         });
     </script>

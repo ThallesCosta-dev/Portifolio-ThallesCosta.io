@@ -187,11 +187,11 @@
                 <form id="cpcCalculator1">
                     <div class="mb-3">
                         <label class="form-label">Número de Cliques</label>
-                        <input type="number" class="form-control" id="clicks1" required>
+                        <input type="number" step="any" class="form-control" id="clicks1" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Investimento (R$)</label>
-                        <input type="number" class="form-control" id="investment1" required>
+                        <input type="number" step="any" class="form-control" id="investment1" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
@@ -210,11 +210,11 @@
                 <form id="cpcCalculator2">
                     <div class="mb-3">
                         <label class="form-label">CPC Desejado (R$)</label>
-                        <input type="number" class="form-control" id="targetCpc2" required>
+                        <input type="number" step="any" class="form-control" id="targetCpc2" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Investimento (R$)</label>
-                        <input type="number" class="form-control" id="investment2" required>
+                        <input type="number" step="any" class="form-control" id="investment2" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
@@ -233,11 +233,11 @@
                 <form id="cpcCalculator3">
                     <div class="mb-3">
                         <label class="form-label">CPC Desejado (R$)</label>
-                        <input type="number" class="form-control" id="targetCpc3" required>
+                        <input type="number" step="any" class="form-control" id="targetCpc3" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Meta de Cliques</label>
-                        <input type="number" class="form-control" id="targetClicks" required>
+                        <input type="number" step="any" class="form-control" id="targetClicks3" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
@@ -316,7 +316,7 @@
         document.getElementById('cpcCalculator3').addEventListener('submit', function(e) {
             e.preventDefault();
             const targetCpc = parseFloat(document.getElementById('targetCpc3').value);
-            const targetClicks = parseFloat(document.getElementById('targetClicks').value);
+            const targetClicks = parseFloat(document.getElementById('targetClicks3').value);
             const investment = targetCpc * targetClicks;
             document.getElementById('investmentResult').textContent = investment.toFixed(2);
             document.getElementById('result3').style.display = 'block';

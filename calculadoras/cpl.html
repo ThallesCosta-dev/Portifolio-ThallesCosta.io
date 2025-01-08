@@ -187,11 +187,11 @@
                 <form id="cplCalculator1">
                     <div class="mb-3">
                         <label class="form-label">Número de Leads</label>
-                        <input type="number" class="form-control" id="leads1" required>
+                        <input type="number" step="any" class="form-control" id="leads1" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Investimento (R$)</label>
-                        <input type="number" class="form-control" id="investment1" required>
+                        <input type="number" step="any" class="form-control" id="investment1" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
@@ -210,11 +210,11 @@
                 <form id="cplCalculator2">
                     <div class="mb-3">
                         <label class="form-label">CPL Desejado (R$)</label>
-                        <input type="number" class="form-control" id="targetCpl2" required>
+                        <input type="number" step="any" class="form-control" id="targetCpl2" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Investimento (R$)</label>
-                        <input type="number" class="form-control" id="investment2" required>
+                        <input type="number" step="any" class="form-control" id="investment2" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
@@ -233,11 +233,11 @@
                 <form id="cplCalculator3">
                     <div class="mb-3">
                         <label class="form-label">CPL Desejado (R$)</label>
-                        <input type="number" class="form-control" id="targetCpl3" required>
+                        <input type="number" step="any" class="form-control" id="targetCpl3" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Meta de Leads</label>
-                        <input type="number" class="form-control" id="targetLeads" required>
+                        <input type="number" step="any" class="form-control" id="targetLeads3" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
@@ -316,7 +316,7 @@
         document.getElementById('cplCalculator3').addEventListener('submit', function(e) {
             e.preventDefault();
             const targetCpl = parseFloat(document.getElementById('targetCpl3').value);
-            const targetLeads = parseFloat(document.getElementById('targetLeads').value);
+            const targetLeads = parseFloat(document.getElementById('targetLeads3').value);
             const investment = targetCpl * targetLeads;
             document.getElementById('investmentResult').textContent = investment.toFixed(2);
             document.getElementById('result3').style.display = 'block';

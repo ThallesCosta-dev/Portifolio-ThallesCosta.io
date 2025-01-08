@@ -187,11 +187,11 @@
                 <form id="cpiCalculator1">
                     <div class="mb-3">
                         <label class="form-label">Número de Impressões</label>
-                        <input type="number" class="form-control" id="impressions1" required>
+                        <input type="number" step="any" class="form-control" id="impressions1" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Investimento (R$)</label>
-                        <input type="number" class="form-control" id="investment1" required>
+                        <input type="number" step="any" class="form-control" id="investment1" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
@@ -210,11 +210,11 @@
                 <form id="cpiCalculator2">
                     <div class="mb-3">
                         <label class="form-label">CPI Desejado (R$)</label>
-                        <input type="number" class="form-control" id="targetCpi2" required>
+                        <input type="number" step="any" class="form-control" id="targetCpi2" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Investimento (R$)</label>
-                        <input type="number" class="form-control" id="investment2" required>
+                        <input type="number" step="any" class="form-control" id="investment2" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
@@ -233,11 +233,11 @@
                 <form id="cpiCalculator3">
                     <div class="mb-3">
                         <label class="form-label">CPI Desejado (R$)</label>
-                        <input type="number" class="form-control" id="targetCpi3" required>
+                        <input type="number" step="any" class="form-control" id="targetCpi3" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Meta de Impressões</label>
-                        <input type="number" class="form-control" id="targetImpressions" required>
+                        <input type="number" step="any" class="form-control" id="targetImpressions3" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
@@ -316,7 +316,7 @@
         document.getElementById('cpiCalculator3').addEventListener('submit', function(e) {
             e.preventDefault();
             const targetCpi = parseFloat(document.getElementById('targetCpi3').value);
-            const targetImpressions = parseFloat(document.getElementById('targetImpressions').value);
+            const targetImpressions = parseFloat(document.getElementById('targetImpressions3').value);
             const investment = targetCpi * targetImpressions;
             document.getElementById('investmentResult').textContent = investment.toFixed(2);
             document.getElementById('result3').style.display = 'block';

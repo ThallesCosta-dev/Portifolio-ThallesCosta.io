@@ -187,11 +187,11 @@
                 <form id="conversionRateCalculator1">
                     <div class="mb-3">
                         <label class="form-label">Número de Conversões</label>
-                        <input type="number" class="form-control" id="conversions1" required>
+                        <input type="number" step="any" class="form-control" id="conversions1" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Número de Visitantes</label>
-                        <input type="number" class="form-control" id="visitors1" required>
+                        <input type="number" step="any" class="form-control" id="visitors1" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
@@ -210,11 +210,11 @@
                 <form id="conversionRateCalculator2">
                     <div class="mb-3">
                         <label class="form-label">Taxa de Conversão Desejada (%)</label>
-                        <input type="number" class="form-control" id="targetConversionRate2" required>
+                        <input type="number" step="any" class="form-control" id="targetRate2" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Número de Visitantes</label>
-                        <input type="number" class="form-control" id="visitors2" required>
+                        <input type="number" step="any" class="form-control" id="visitors2" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
@@ -233,11 +233,11 @@
                 <form id="conversionRateCalculator3">
                     <div class="mb-3">
                         <label class="form-label">Taxa de Conversão Desejada (%)</label>
-                        <input type="number" class="form-control" id="targetConversionRate3" required>
+                        <input type="number" step="any" class="form-control" id="targetRate3" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Meta de Conversões</label>
-                        <input type="number" class="form-control" id="targetConversions" required>
+                        <input type="number" step="any" class="form-control" id="targetConversions3" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
@@ -306,7 +306,7 @@
 
         document.getElementById('conversionRateCalculator2').addEventListener('submit', function(e) {
             e.preventDefault();
-            const targetConversionRate = parseFloat(document.getElementById('targetConversionRate2').value);
+            const targetConversionRate = parseFloat(document.getElementById('targetRate2').value);
             const visitors = parseFloat(document.getElementById('visitors2').value);
             const conversions = (targetConversionRate * visitors) / 100;
             document.getElementById('conversionsResult').textContent = Math.round(conversions);
@@ -315,8 +315,8 @@
 
         document.getElementById('conversionRateCalculator3').addEventListener('submit', function(e) {
             e.preventDefault();
-            const targetConversionRate = parseFloat(document.getElementById('targetConversionRate3').value);
-            const targetConversions = parseFloat(document.getElementById('targetConversions').value);
+            const targetConversionRate = parseFloat(document.getElementById('targetRate3').value);
+            const targetConversions = parseFloat(document.getElementById('targetConversions3').value);
             const visitors = (targetConversions * 100) / targetConversionRate;
             document.getElementById('visitorsResult').textContent = Math.round(visitors);
             document.getElementById('result3').style.display = 'block';

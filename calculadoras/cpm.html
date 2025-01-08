@@ -187,11 +187,11 @@
                 <form id="cpmCalculator1">
                     <div class="mb-3">
                         <label class="form-label">Número de Impressões</label>
-                        <input type="number" class="form-control" id="impressions1" required>
+                        <input type="number" step="any" class="form-control" id="impressions1" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Investimento (R$)</label>
-                        <input type="number" class="form-control" id="investment1" required>
+                        <input type="number" step="any" class="form-control" id="investment1" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
@@ -210,11 +210,11 @@
                 <form id="cpmCalculator2">
                     <div class="mb-3">
                         <label class="form-label">CPM Desejado (R$)</label>
-                        <input type="number" class="form-control" id="targetCpm2" required>
+                        <input type="number" step="any" class="form-control" id="targetCpm2" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Investimento (R$)</label>
-                        <input type="number" class="form-control" id="investment2" required>
+                        <input type="number" step="any" class="form-control" id="investment2" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
@@ -233,11 +233,11 @@
                 <form id="cpmCalculator3">
                     <div class="mb-3">
                         <label class="form-label">CPM Desejado (R$)</label>
-                        <input type="number" class="form-control" id="targetCpm3" required>
+                        <input type="number" step="any" class="form-control" id="targetCpm3" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Meta de Impressões</label>
-                        <input type="number" class="form-control" id="targetImpressions" required>
+                        <input type="number" step="any" class="form-control" id="targetImpressions3" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
@@ -316,7 +316,7 @@
         document.getElementById('cpmCalculator3').addEventListener('submit', function(e) {
             e.preventDefault();
             const targetCpm = parseFloat(document.getElementById('targetCpm3').value);
-            const targetImpressions = parseFloat(document.getElementById('targetImpressions').value);
+            const targetImpressions = parseFloat(document.getElementById('targetImpressions3').value);
             const investment = (targetCpm * targetImpressions) / 1000; // Dividir por 1000 para CPM
             document.getElementById('investmentResult').textContent = investment.toFixed(2);
             document.getElementById('result3').style.display = 'block';

@@ -201,6 +201,102 @@
             color: #149ddd;
         }
 
+        .description-section {
+            background: rgba(20, 157, 221, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(20, 157, 221, 0.3);
+        }
+
+        .description-text {
+            color: #fff;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .metrics-description {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .metric-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .metric-item strong {
+            color: #149ddd;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .metric-group {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            line-height: 1.5;
+            width: 100%;
+            text-align: left;
+            border: 1px solid rgba(20, 157, 221, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .metric-group:hover {
+            background: rgba(20, 157, 221, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .metric-group strong {
+            color: #149ddd;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .metric-group p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .metric-arrow {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #149ddd;
+            transition: transform 0.3s ease;
+        }
+
+        .metric-group.active .metric-arrow {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        /* Estilos para os grupos de métricas */
+        .metrics-group {
+            display: none;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .metrics-group.active {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 20px;
@@ -232,43 +328,59 @@
             .suggestion-section h2 {
                 font-size: 24px;
             }
-        }
 
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            color: #149ddd;
-            text-decoration: none;
-            padding: 10px 20px;
-            margin-top: 20px;
-            border: 1px solid rgba(20, 157, 221, 0.3);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-size: 16px;
-        }
+            .description-section {
+                padding: 20px;
+                margin: 20px;
+            }
 
-        .back-button:hover {
-            background: rgba(20, 157, 221, 0.1);
-            transform: translateX(-5px);
-            color: #fff;
-        }
-
-        .back-button i {
-            margin-right: 8px;
+            .metrics-description {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="logo">
-            <a href="../index.html">
-                <img src="../assets/img/logo.png" alt="Calculadora de Mídia">
-            </a>
+            <img src="../assets/img/logo.png" alt="Calculadora de Mídia">
         </div>
 
         <div class="page-title">
             <h1><span id="typed"></span></h1>
             <p>Clique na métrica de marketing digital que você deseja calcular:</p>
+        </div>
+
+        <div class="description-section">
+            <p class="description-text">
+                Estas calculadoras foram desenvolvidas para auxiliar profissionais de marketing digital a mensurar 
+                e analisar suas campanhas de forma precisa. Cada grupo de métricas tem sua importância única:
+            </p>
+            <div class="metrics-description">
+                <button class="metric-group" onclick="toggleMetrics('cost-metrics')">
+                    <strong>CPA, CPC, CPL, CPM, CPI e CPV</strong>
+                    <p>Métricas de custo que ajudam a entender quanto você está investindo por cada resultado específico.</p>
+                    <div class="metric-arrow"><i class="bi bi-chevron-down"></i></div>
+                </button>
+                
+                <button class="metric-group" onclick="toggleMetrics('rate-metrics')">
+                    <strong>CTR e Taxas</strong>
+                    <p>Indicadores de eficiência que mostram a performance das suas ações em termos percentuais.</p>
+                    <div class="metric-arrow"><i class="bi bi-chevron-down"></i></div>
+                </button>
+                
+                <button class="metric-group" onclick="toggleMetrics('return-metrics')">
+                    <strong>ROAS e ROI</strong>
+                    <p>Métricas financeiras essenciais para medir o retorno dos seus investimentos em publicidade.</p>
+                    <div class="metric-arrow"><i class="bi bi-chevron-down"></i></div>
+                </button>
+                
+                <button class="metric-group" onclick="toggleMetrics('value-metrics')">
+                    <strong>LTV e Ticket Médio</strong>
+                    <p>Indicadores do valor gerado pelos seus clientes, fundamentais para estratégias de longo prazo.</p>
+                    <div class="metric-arrow"><i class="bi bi-chevron-down"></i></div>
+                </button>
+            </div>
         </div>
 
         <div class="metrics-grid">
@@ -286,6 +398,7 @@
             <a href="taxa-conversao.html" class="metric-button">Taxa de Conversão / Conversion Rate</a>
             <a href="ticket-medio.html" class="metric-button">Ticket Médio</a>
             <a href="ltv.html" class="metric-button">LTV/CLV - Lifetime Value</a>
+            <a href="diferenca-percentual.html" class="metric-button">Diferença Percentual</a>
         </div>
 
         <div class="suggestion-section">
@@ -294,10 +407,10 @@
         </div>
 
         <div class="social-links">
-            <a href="https://x.com/ThallesCostaDev" target="_blank"><i class="bi bi-twitter-x"></i></a>
-            <a href="https://www.instagram.com/thalles_costa5/" target="_blank"><i class="bi bi-instagram"></i></a>
-            <a href="https://github.com/ThallesCosta-dev" target="_blank"><i class="bi bi-github"></i></a>
-            <a href="https://www.linkedin.com/in/thallesfcosta/" target="_blank"><i class="bi bi-linkedin"></i></a>
+            <a href="#"><i class="bi bi-tiktok"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
         </div>
 
         <footer id="footer" class="footer position-relative light-background">
@@ -326,6 +439,39 @@
                 }, 1500);
             }
         });
+
+        function toggleMetrics(groupId) {
+            const groups = {
+                'cost-metrics': ['cpa.html', 'cpc.html', 'cpl.html', 'cpm.html', 'cpi.html', 'cpv.html'],
+                'rate-metrics': ['ctr.html', 'taxa-de-conversao.html', 'taxa-de-visualizacao.html', 'diferenca-percentual.html'],
+                'return-metrics': ['roas.html', 'roi.html', 'rpm.html'],
+                'value-metrics': ['ltv.html', 'ticket-medio.html']
+            };
+
+            // Toggle active state of button
+            const button = event.currentTarget;
+            button.classList.toggle('active');
+
+            // Filter metrics grid
+            const metricsGrid = document.querySelector('.metrics-grid');
+            const allMetricButtons = metricsGrid.querySelectorAll('.metric-button');
+
+            if (button.classList.contains('active')) {
+                // Show only related metrics
+                allMetricButtons.forEach(metricButton => {
+                    if (groups[groupId].some(metric => metricButton.href.includes(metric))) {
+                        metricButton.style.display = 'block';
+                    } else {
+                        metricButton.style.display = 'none';
+                    }
+                });
+            } else {
+                // Show all metrics
+                allMetricButtons.forEach(metricButton => {
+                    metricButton.style.display = 'block';
+                });
+            }
+        }
     </script>
 </body>
 </html> 

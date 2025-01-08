@@ -187,11 +187,11 @@
                 <form id="roasCalculator1">
                     <div class="mb-3">
                         <label class="form-label">Receita Total (R$)</label>
-                        <input type="number" class="form-control" id="revenue1" required>
+                        <input type="number" step="any" class="form-control" id="revenue1" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Investimento em Anúncios (R$)</label>
-                        <input type="number" class="form-control" id="adSpend1" required>
+                        <input type="number" step="any" class="form-control" id="investment1" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
@@ -210,11 +210,11 @@
                 <form id="roasCalculator2">
                     <div class="mb-3">
                         <label class="form-label">ROAS Desejado (X:1)</label>
-                        <input type="number" class="form-control" id="targetRoas2" required>
+                        <input type="number" step="any" class="form-control" id="targetRoas2" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Investimento em Anúncios (R$)</label>
-                        <input type="number" class="form-control" id="adSpend2" required>
+                        <input type="number" step="any" class="form-control" id="investment2" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
@@ -233,11 +233,11 @@
                 <form id="roasCalculator3">
                     <div class="mb-3">
                         <label class="form-label">ROAS Desejado (X:1)</label>
-                        <input type="number" class="form-control" id="targetRoas3" required>
+                        <input type="number" step="any" class="form-control" id="targetRoas3" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Receita Total (R$)</label>
-                        <input type="number" class="form-control" id="revenue3" required>
+                        <input type="number" step="any" class="form-control" id="targetRevenue3" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
@@ -298,8 +298,8 @@
         document.getElementById('roasCalculator1').addEventListener('submit', function(e) {
             e.preventDefault();
             const revenue = parseFloat(document.getElementById('revenue1').value);
-            const adSpend = parseFloat(document.getElementById('adSpend1').value);
-            const roas = revenue / adSpend;
+            const investment = parseFloat(document.getElementById('investment1').value);
+            const roas = revenue / investment;
             document.getElementById('roasResult1').textContent = roas.toFixed(2);
             document.getElementById('result1').style.display = 'block';
         });
@@ -307,8 +307,8 @@
         document.getElementById('roasCalculator2').addEventListener('submit', function(e) {
             e.preventDefault();
             const targetRoas = parseFloat(document.getElementById('targetRoas2').value);
-            const adSpend = parseFloat(document.getElementById('adSpend2').value);
-            const revenue = targetRoas * adSpend;
+            const investment = parseFloat(document.getElementById('investment2').value);
+            const revenue = targetRoas * investment;
             document.getElementById('revenueResult').textContent = revenue.toFixed(2);
             document.getElementById('result2').style.display = 'block';
         });
@@ -316,9 +316,9 @@
         document.getElementById('roasCalculator3').addEventListener('submit', function(e) {
             e.preventDefault();
             const targetRoas = parseFloat(document.getElementById('targetRoas3').value);
-            const revenue = parseFloat(document.getElementById('revenue3').value);
-            const adSpend = revenue / targetRoas;
-            document.getElementById('adSpendResult').textContent = adSpend.toFixed(2);
+            const revenue = parseFloat(document.getElementById('targetRevenue3').value);
+            const investment = revenue / targetRoas;
+            document.getElementById('adSpendResult').textContent = investment.toFixed(2);
             document.getElementById('result3').style.display = 'block';
         });
     </script>

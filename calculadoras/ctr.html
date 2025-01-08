@@ -187,11 +187,11 @@
                 <form id="ctrCalculator1">
                     <div class="mb-3">
                         <label class="form-label">Número de Cliques</label>
-                        <input type="number" class="form-control" id="clicks1" required>
+                        <input type="number" step="any" class="form-control" id="clicks1" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Número de Impressões</label>
-                        <input type="number" class="form-control" id="impressions1" required>
+                        <input type="number" step="any" class="form-control" id="impressions1" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
@@ -210,11 +210,11 @@
                 <form id="ctrCalculator2">
                     <div class="mb-3">
                         <label class="form-label">CTR Desejado (%)</label>
-                        <input type="number" class="form-control" id="targetCtr2" required>
+                        <input type="number" step="any" class="form-control" id="targetCtr2" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Número de Impressões</label>
-                        <input type="number" class="form-control" id="impressions2" required>
+                        <input type="number" step="any" class="form-control" id="impressions2" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
@@ -233,11 +233,11 @@
                 <form id="ctrCalculator3">
                     <div class="mb-3">
                         <label class="form-label">CTR Desejado (%)</label>
-                        <input type="number" class="form-control" id="targetCtr3" required>
+                        <input type="number" step="any" class="form-control" id="targetCtr3" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Meta de Cliques</label>
-                        <input type="number" class="form-control" id="targetClicks" required>
+                        <input type="number" step="any" class="form-control" id="targetClicks3" required>
                     </div>
                     <button type="submit" class="btn-calculate">Calcular</button>
                 </form>
@@ -316,7 +316,7 @@
         document.getElementById('ctrCalculator3').addEventListener('submit', function(e) {
             e.preventDefault();
             const targetCtr = parseFloat(document.getElementById('targetCtr3').value);
-            const targetClicks = parseFloat(document.getElementById('targetClicks').value);
+            const targetClicks = parseFloat(document.getElementById('targetClicks3').value);
             const impressions = (targetClicks * 100) / targetCtr;
             document.getElementById('impressionsResult').textContent = Math.round(impressions);
             document.getElementById('result3').style.display = 'block';
