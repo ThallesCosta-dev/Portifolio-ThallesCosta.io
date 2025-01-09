@@ -163,6 +163,53 @@
             border-color: #149ddd;
             box-shadow: 0 0 0 0.2rem rgba(20, 157, 221, 0.25);
         }
+
+        .calculator-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .calculator-tab {
+            background: rgba(20, 157, 221, 0.1);
+            color: #fff;
+            border: 1px solid rgba(20, 157, 221, 0.3);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+        }
+
+        .calculator-tab.active {
+            background: #149ddd;
+        }
+
+        .case-description {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .case-description ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .case-description ul li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .case-description ul li:before {
+            content: "•";
+            color: #149ddd;
+            position: absolute;
+            left: 0;
+        }
     </style>
 </head>
 <body>
@@ -175,43 +222,94 @@
             <div class="calculator-title">
                 <span id="typed"></span>
                 <i class="bi bi-info-circle info-icon" data-bs-toggle="tooltip" data-bs-placement="right" 
-                   title="Simule diferentes cenários de vendas e analise os resultados"></i>
+                   title="Simule diferentes estratégias de precificação e analise seus impactos"></i>
             </div>
 
-            <div class="case-card">
-                <table id="simuladorTable">
-                    <tr>
-                        <th>Item</th>
-                        <th>Menor preço do concorrente</th>
-                        <th>Seu valor de venda</th>
-                        <th>Quantidade vendida</th>
-                        <th>Faturamento</th>
-                        <th>Custo total</th>
-                        <th>Lucro</th>
-                    </tr>
-                    <tr>
-                        <td><input type="text" class="item"></td>
-                        <td><input type="number" class="preco-concorrente"></td>
-                        <td><input type="number" class="valor-venda"></td>
-                        <td><input type="number" class="quantidade"></td>
-                        <td><span class="faturamento">0.00</span></td>
-                        <td><input type="number" class="custo-total"></td>
-                        <td><span class="lucro">0.00</span></td>
-                    </tr>
-                </table>
+            <div class="calculator-tabs">
+                <button class="calculator-tab active" data-case="1">Foco em Volume</button>
+                <button class="calculator-tab" data-case="2">Foco em Margem</button>
+                <button class="calculator-tab" data-case="3">Estratégia Híbrida</button>
+            </div>
 
-                <div class="d-flex gap-2">
-                    <button class="btn-calculate" onclick="adicionarLinhaCenario()">Adicionar Item</button>
-                    <button class="btn-calculate" onclick="calcularCenario()">Calcular</button>
+            <div id="case1" class="case-card">
+                <h3 class="case-title">
+                    Estratégia de Volume
+                    <i class="bi bi-info-circle info-icon" data-bs-toggle="tooltip" data-bs-placement="right" 
+                       title="Preços mais competitivos para maximizar o volume de vendas. Ideal para produtos com alta elasticidade de preço ou para ganhar participação de mercado."></i>
+                </h3>
+                <div class="case-description mb-4">
+                    <p>Esta estratégia prioriza preços mais baixos para estimular maiores volumes de venda. 
+                       Adequada para:</p>
+                    <ul>
+                        <li>Produtos com alta elasticidade de preço</li>
+                        <li>Mercados muito competitivos</li>
+                        <li>Objetivos de ganho de market share</li>
+                        <li>Produtos com baixo custo marginal</li>
+                    </ul>
                 </div>
+                <!-- Tabela do simulador aqui -->
+            </div>
 
-                <div id="totais" class="result-card">
-                    <div class="result-title">Resultados Totais</div>
-                    <div class="result-value">
-                        <p>Faturamento Total: R$ <span id="faturamentoTotal">0.00</span></p>
-                        <p>Custo Total: R$ <span id="custoTotal">0.00</span></p>
-                        <p>Lucro Total: R$ <span id="lucroTotal">0.00</span></p>
-                    </div>
+            <div id="case2" class="case-card" style="display: none;">
+                <h3 class="case-title">
+                    Estratégia de Margem
+                    <i class="bi bi-info-circle info-icon" data-bs-toggle="tooltip" data-bs-placement="right" 
+                       title="Foco em margens mais altas por unidade. Ideal para produtos premium ou com diferencial competitivo significativo."></i>
+                </h3>
+                <div class="case-description mb-4">
+                    <p>Esta estratégia prioriza margens maiores por unidade vendida. 
+                       Recomendada para:</p>
+                    <ul>
+                        <li>Produtos premium ou exclusivos</li>
+                        <li>Mercados com baixa sensibilidade a preço</li>
+                        <li>Produtos com alto valor agregado</li>
+                        <li>Nichos específicos de mercado</li>
+                    </ul>
+                </div>
+                <!-- Tabela do simulador aqui -->
+            </div>
+
+            <div id="case3" class="case-card" style="display: none;">
+                <h3 class="case-title">
+                    Estratégia Híbrida
+                    <i class="bi bi-info-circle info-icon" data-bs-toggle="tooltip" data-bs-placement="right" 
+                       title="Equilibra volume e margem, buscando um ponto ótimo entre preço e quantidade vendida."></i>
+                </h3>
+                <div class="case-description mb-4">
+                    <p>Esta estratégia busca um equilíbrio entre volume e margem. 
+                       Indicada para:</p>
+                    <ul>
+                        <li>Portfólio diversificado de produtos</li>
+                        <li>Mercados com competição moderada</li>
+                        <li>Produtos em fase de maturidade</li>
+                        <li>Objetivos balanceados de crescimento</li>
+                    </ul>
+                </div>
+                <!-- Tabela do simulador aqui -->
+            </div>
+
+            <!-- Adicione o JavaScript para controlar as tabs -->
+            <script>
+                document.querySelectorAll('.calculator-tab').forEach(tab => {
+                    tab.addEventListener('click', function() {
+                        // Remove active de todas as tabs
+                        document.querySelectorAll('.calculator-tab').forEach(t => t.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        // Esconde todos os cases
+                        document.querySelectorAll('.case-card').forEach(card => card.style.display = 'none');
+                        // Mostra o case selecionado
+                        document.getElementById('case' + this.dataset.case).style.display = 'block';
+                    });
+                });
+            </script>
+
+            <div id="totais" class="result-card">
+                <div class="result-title">Resultados Totais</div>
+                <div class="result-value">
+                    <p>Faturamento Total: R$ <span id="faturamentoTotal">0.00</span></p>
+                    <p>Custo Total: R$ <span id="custoTotal">0.00</span></p>
+                    <p>Lucro Total: R$ <span id="lucroTotal">0.00</span></p>
                 </div>
             </div>
         </div>
