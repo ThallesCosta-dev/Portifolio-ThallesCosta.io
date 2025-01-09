@@ -247,7 +247,41 @@
                         <li>Produtos com baixo custo marginal</li>
                     </ul>
                 </div>
-                <!-- Tabela do simulador aqui -->
+                
+                <table id="simuladorTable1" class="simulador-table">
+                    <tr>
+                        <th>Item</th>
+                        <th>Menor preço do concorrente</th>
+                        <th>Seu valor de venda</th>
+                        <th>Quantidade vendida</th>
+                        <th>Faturamento</th>
+                        <th>Custo total</th>
+                        <th>Lucro</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="item"></td>
+                        <td><input type="number" class="preco-concorrente"></td>
+                        <td><input type="number" class="valor-venda"></td>
+                        <td><input type="number" class="quantidade"></td>
+                        <td><span class="faturamento">0.00</span></td>
+                        <td><input type="number" class="custo-total"></td>
+                        <td><span class="lucro">0.00</span></td>
+                    </tr>
+                </table>
+
+                <div class="d-flex gap-2 mb-3">
+                    <button class="btn-calculate" onclick="adicionarLinhaCenario('1')">Adicionar Item</button>
+                    <button class="btn-calculate" onclick="calcularCenario('1')">Calcular</button>
+                </div>
+
+                <div id="totais1" class="result-card">
+                    <div class="result-title">Resultados Totais</div>
+                    <div class="result-value">
+                        <p>Faturamento Total: R$ <span id="faturamentoTotal1">0.00</span></p>
+                        <p>Custo Total: R$ <span id="custoTotal1">0.00</span></p>
+                        <p>Lucro Total: R$ <span id="lucroTotal1">0.00</span></p>
+                    </div>
+                </div>
             </div>
 
             <div id="case2" class="case-card" style="display: none;">
@@ -266,7 +300,41 @@
                         <li>Nichos específicos de mercado</li>
                     </ul>
                 </div>
-                <!-- Tabela do simulador aqui -->
+                
+                <table id="simuladorTable2" class="simulador-table">
+                    <tr>
+                        <th>Item</th>
+                        <th>Menor preço do concorrente</th>
+                        <th>Seu valor de venda</th>
+                        <th>Quantidade vendida</th>
+                        <th>Faturamento</th>
+                        <th>Custo total</th>
+                        <th>Lucro</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="item"></td>
+                        <td><input type="number" class="preco-concorrente"></td>
+                        <td><input type="number" class="valor-venda"></td>
+                        <td><input type="number" class="quantidade"></td>
+                        <td><span class="faturamento">0.00</span></td>
+                        <td><input type="number" class="custo-total"></td>
+                        <td><span class="lucro">0.00</span></td>
+                    </tr>
+                </table>
+
+                <div class="d-flex gap-2 mb-3">
+                    <button class="btn-calculate" onclick="adicionarLinhaCenario('2')">Adicionar Item</button>
+                    <button class="btn-calculate" onclick="calcularCenario('2')">Calcular</button>
+                </div>
+
+                <div id="totais2" class="result-card">
+                    <div class="result-title">Resultados Totais</div>
+                    <div class="result-value">
+                        <p>Faturamento Total: R$ <span id="faturamentoTotal2">0.00</span></p>
+                        <p>Custo Total: R$ <span id="custoTotal2">0.00</span></p>
+                        <p>Lucro Total: R$ <span id="lucroTotal2">0.00</span></p>
+                    </div>
+                </div>
             </div>
 
             <div id="case3" class="case-card" style="display: none;">
@@ -285,7 +353,41 @@
                         <li>Objetivos balanceados de crescimento</li>
                     </ul>
                 </div>
-                <!-- Tabela do simulador aqui -->
+                
+                <table id="simuladorTable3" class="simulador-table">
+                    <tr>
+                        <th>Item</th>
+                        <th>Menor preço do concorrente</th>
+                        <th>Seu valor de venda</th>
+                        <th>Quantidade vendida</th>
+                        <th>Faturamento</th>
+                        <th>Custo total</th>
+                        <th>Lucro</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="item"></td>
+                        <td><input type="number" class="preco-concorrente"></td>
+                        <td><input type="number" class="valor-venda"></td>
+                        <td><input type="number" class="quantidade"></td>
+                        <td><span class="faturamento">0.00</span></td>
+                        <td><input type="number" class="custo-total"></td>
+                        <td><span class="lucro">0.00</span></td>
+                    </tr>
+                </table>
+
+                <div class="d-flex gap-2 mb-3">
+                    <button class="btn-calculate" onclick="adicionarLinhaCenario('3')">Adicionar Item</button>
+                    <button class="btn-calculate" onclick="calcularCenario('3')">Calcular</button>
+                </div>
+
+                <div id="totais3" class="result-card">
+                    <div class="result-title">Resultados Totais</div>
+                    <div class="result-value">
+                        <p>Faturamento Total: R$ <span id="faturamentoTotal3">0.00</span></p>
+                        <p>Custo Total: R$ <span id="custoTotal3">0.00</span></p>
+                        <p>Lucro Total: R$ <span id="lucroTotal3">0.00</span></p>
+                    </div>
+                </div>
             </div>
 
             <!-- Adicione o JavaScript para controlar as tabs -->
@@ -303,15 +405,6 @@
                     });
                 });
             </script>
-
-            <div id="totais" class="result-card">
-                <div class="result-title">Resultados Totais</div>
-                <div class="result-value">
-                    <p>Faturamento Total: R$ <span id="faturamentoTotal">0.00</span></p>
-                    <p>Custo Total: R$ <span id="custoTotal">0.00</span></p>
-                    <p>Lucro Total: R$ <span id="lucroTotal">0.00</span></p>
-                </div>
-            </div>
         </div>
 
         <footer class="footer">

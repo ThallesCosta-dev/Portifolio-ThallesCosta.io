@@ -1,5 +1,5 @@
-function calcularCenario() {
-    const linhas = document.querySelectorAll('#simuladorTable tr:not(:first-child)');
+function calcularCenario(caseId) {
+    const linhas = document.querySelectorAll(`#simuladorTable${caseId} tr:not(:first-child)`);
     let faturamentoTotal = 0;
     let custoTotalGeral = 0;
     let lucroTotal = 0;
@@ -20,13 +20,13 @@ function calcularCenario() {
         lucroTotal += lucro;
     });
     
-    document.getElementById('faturamentoTotal').textContent = faturamentoTotal.toFixed(2);
-    document.getElementById('custoTotal').textContent = custoTotalGeral.toFixed(2);
-    document.getElementById('lucroTotal').textContent = lucroTotal.toFixed(2);
+    document.getElementById(`faturamentoTotal${caseId}`).textContent = faturamentoTotal.toFixed(2);
+    document.getElementById(`custoTotal${caseId}`).textContent = custoTotalGeral.toFixed(2);
+    document.getElementById(`lucroTotal${caseId}`).textContent = lucroTotal.toFixed(2);
 }
 
-function adicionarLinhaCenario() {
-    const tabela = document.getElementById('simuladorTable');
+function adicionarLinhaCenario(caseId) {
+    const tabela = document.getElementById(`simuladorTable${caseId}`);
     const novaLinha = document.createElement('tr');
     novaLinha.innerHTML = `
         <td><input type="text" class="item"></td>
@@ -38,4 +38,4 @@ function adicionarLinhaCenario() {
         <td><span class="lucro">0.00</span></td>
     `;
     tabela.appendChild(novaLinha);
-} 
+}
