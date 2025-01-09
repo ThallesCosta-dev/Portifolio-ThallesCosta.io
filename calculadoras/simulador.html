@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Cenários</title>
+    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <style>
+        body {
+            background-color: #040b14;
+            color: #fff;
+            font-family: "Open Sans", sans-serif;
+        }
+        
+        .calculator-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .calculator-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 30px;
+            color: #fff;
+        }
+
+        .calculator-title {
+            color: #fff;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .case-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(20, 157, 221, 0.3);
+            color: #fff;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #149ddd;
+            color: #fff;
+            box-shadow: 0 0 0 0.2rem rgba(20, 157, 221, 0.25);
+        }
+
+        .btn-calculate {
+            background: #149ddd;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-calculate:hover {
+            background: #117db1;
+            transform: translateY(-2px);
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .result-title {
+            color: #fff;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .result-value {
+            color: #149ddd;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .back-button {
+            color: #149ddd;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .back-button:hover {
+            color: #117db1;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .footer .copyright {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer .copyright span {
+            opacity: 0.8;
+        }
+
+        .footer .copyright strong {
+            color: #149ddd;
+        }
+
+        .info-icon {
+            color: #149ddd;
+            font-size: 20px;
+            cursor: help;
+            margin-left: 8px;
+        }
+
+        table {
+            width: 100%;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        th {
+            background: rgba(20, 157, 221, 0.1);
+            color: #149ddd;
+        }
+
+        input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(20, 157, 221, 0.3);
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #149ddd;
+            box-shadow: 0 0 0 0.2rem rgba(20, 157, 221, 0.25);
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <a href="index.html" class="back-button">
+            <i class="bi bi-arrow-left"></i> Voltar para Métricas
+        </a>
+
+        <div class="calculator-card">
+            <div class="calculator-title">
+                <span id="typed"></span>
+                <i class="bi bi-info-circle info-icon" data-bs-toggle="tooltip" data-bs-placement="right" 
+                   title="Simule diferentes cenários de vendas e analise os resultados"></i>
+            </div>
+
+            <div class="case-card">
+                <table id="simuladorTable">
+                    <tr>
+                        <th>Item</th>
+                        <th>Menor preço do concorrente</th>
+                        <th>Seu valor de venda</th>
+                        <th>Quantidade vendida</th>
+                        <th>Faturamento</th>
+                        <th>Custo total</th>
+                        <th>Lucro</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" class="item"></td>
+                        <td><input type="number" class="preco-concorrente"></td>
+                        <td><input type="number" class="valor-venda"></td>
+                        <td><input type="number" class="quantidade"></td>
+                        <td><span class="faturamento">0.00</span></td>
+                        <td><input type="number" class="custo-total"></td>
+                        <td><span class="lucro">0.00</span></td>
+                    </tr>
+                </table>
+
+                <div class="d-flex gap-2">
+                    <button class="btn-calculate" onclick="adicionarLinhaCenario()">Adicionar Item</button>
+                    <button class="btn-calculate" onclick="calcularCenario()">Calcular</button>
+                </div>
+
+                <div id="totais" class="result-card">
+                    <div class="result-title">Resultados Totais</div>
+                    <div class="result-value">
+                        <p>Faturamento Total: R$ <span id="faturamentoTotal">0.00</span></p>
+                        <p>Custo Total: R$ <span id="custoTotal">0.00</span></p>
+                        <p>Lucro Total: R$ <span id="lucroTotal">0.00</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="copyright text-center">
+                    <p>© <span>Copyright</span> <strong class="px-1">Thalles Costa 2025</strong> <span>Todos os direitos reservados</span></p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Typed.js
+        var typed = new Typed('#typed', {
+            strings: ['Simulador de Cenários'],
+            typeSpeed: 100,
+            backSpeed: 50,
+            loop: false,
+            showCursor: true,
+            cursorChar: '|',
+            autoInsertCss: true,
+            onComplete: (self) => {
+                setTimeout(() => {
+                    self.cursor.style.display = 'none';
+                }, 1500);
+            }
+        });
+
+        // Inicializar tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+    </script>
+    <script src="../forms/simulador.js"></script>
+</body>
+</html> 
