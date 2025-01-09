@@ -6,7 +6,7 @@ Um portfólio profissional moderno e responsivo, desenvolvido para apresentar mi
 
 ## 🚀 Demonstração
 
-Acesse o projeto em funcionamento: [Link do Projeto](https://github.com/ThallesCosta-dev/Portifolio-ThallesCosta.io)
+Acesse o projeto em funcionamento: [Link do Projeto](https://github.com/ThallesCosta-dev/Portifolio-ThallesCosta.io.git)
 
 ## 📋 Características
 
