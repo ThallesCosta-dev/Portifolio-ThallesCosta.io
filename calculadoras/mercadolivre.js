@@ -98,6 +98,7 @@ document.getElementById('mlCalculator').addEventListener('submit', function(e) {
     const precoCusto = parseFloat(document.getElementById('precoCusto').value) || 0;
     const custosOp = parseFloat(document.getElementById('custosOp').value) || 0;
     const comissaoML = parseFloat(document.getElementById('comissaoML').value) || 13;
+    const impostoPercent = parseFloat(document.getElementById('impostoPercent').value) || 0;
     const regiaoEnvio = document.getElementById('regiaoEnvio').value;
     const pesoProduto = document.getElementById('pesoProduto').value;
     const reputacao = document.getElementById('reputacao').value;
@@ -156,11 +157,14 @@ document.getElementById('mlCalculator').addEventListener('submit', function(e) {
         }
     }
 
-    // Calcular custos totais
-    const custoTotal = valorComissao + custoFixo + precoCusto + custosOp + custoEnvio;
+    // Calcular imposto
+    const valorImposto = (precoVenda * impostoPercent) / 100;
+
+    // Calcular custos totais (incluindo imposto)
+    const custoTotal = valorComissao + custoFixo + precoCusto + custosOp + custoEnvio + valorImposto;
 
     // Calcular resultados
-    const receitaLiquida = precoVenda - valorComissao - custoFixo - custoEnvio;
+    const receitaLiquida = precoVenda - valorComissao - custoFixo - custoEnvio - valorImposto;
     const lucro = receitaLiquida - precoCusto - custosOp;
     const margemLucro = (lucro / precoVenda) * 100;
 
@@ -168,6 +172,7 @@ document.getElementById('mlCalculator').addEventListener('submit', function(e) {
     document.getElementById('valorComissao').textContent = valorComissao.toFixed(2);
     document.getElementById('custoFixo').textContent = custoFixo.toFixed(2);
     document.getElementById('custoEnvio').textContent = custoEnvio.toFixed(2);
+    document.getElementById('valorImposto').textContent = valorImposto.toFixed(2);
     document.getElementById('custoTotal').textContent = custoTotal.toFixed(2);
     document.getElementById('receitaLiquida').textContent = receitaLiquida.toFixed(2);
     document.getElementById('lucro').textContent = lucro.toFixed(2);
@@ -226,13 +231,24 @@ document.getElementById('pagadorFreteReverso').addEventListener('change', functi
     }
 });
 
-// Função de cálculo atualizada
+// Função para calcular custo fixo
+function calcularCustoFixo(precoVenda) {
+    if (precoVenda < 79) {
+        if (precoVenda <= 29) return 6.25;
+        if (precoVenda <= 50) return 6.50;
+        return 6.75;
+    }
+    return 0;
+}
+
+// Atualizar função de cálculo reverso
 function calcularPrecoVendaReverso(dados) {
     const {
         precoCusto,
         margemDesejada,
         custosOp,
         comissaoML,
+        impostoPercent,
         pagadorFrete,
         regiaoEnvio,
         pesoProduto,
@@ -241,53 +257,60 @@ function calcularPrecoVendaReverso(dados) {
     } = dados;
 
     // Calcular custo de envio
-    let custoEnvio = 0;
-    if (pagadorFrete === 'vendedor') {
-        const valorBaseFrete = tabelaFrete[regiaoEnvio][pesoProduto];
-        let descontoReputacao = 0;
+    let custoEnvio = calcularCustoEnvio(dados);
+
+    // Função para calcular todos os custos e lucro para um dado preço de venda
+    function calcularCustosELucro(precoVenda) {
+        const custoFixo = calcularCustoFixo(precoVenda);
+        const comissao = (precoVenda * comissaoML) / 100;
+        const imposto = (precoVenda * impostoPercent) / 100;
+        const custoTotal = precoCusto + custosOp + comissao + custoEnvio + imposto + custoFixo;
+        const lucro = precoVenda - custoTotal;
+        const margemAtual = (lucro / precoVenda) * 100;
         
-        switch(reputacao) {
-            case 'verde':
-                descontoReputacao = 0.50;
-                break;
-            case 'amarela':
-                descontoReputacao = 0.40;
-                break;
-            case 'vermelha':
-                descontoReputacao = 0;
-                break;
-        }
-
-        custoEnvio = valorBaseFrete * (1 - descontoReputacao);
-
-        if (tipoEnvio === 'full') {
-            custoEnvio = custoEnvio * 0.8;
-        }
+        return {
+            custoFixo,
+            comissao,
+            imposto,
+            custoTotal,
+            lucro,
+            margemAtual
+        };
     }
 
-    // Calcular preço de venda necessário
+    // Calcular preço de venda inicial
     const custoBase = precoCusto + custosOp;
-    let precoVenda = (custoBase + custoEnvio) / (1 - ((comissaoML + margemDesejada)/100));
+    let precoVenda = (custoBase + custoEnvio) / (1 - ((comissaoML + margemDesejada + impostoPercent)/100));
     
+    // Ajuste iterativo para considerar o custo fixo
+    let iteracoes = 0;
+    let resultados = calcularCustosELucro(precoVenda);
+    
+    while (Math.abs(resultados.margemAtual - margemDesejada) > 0.1 && iteracoes < 10) {
+        // Ajustar preço de venda baseado na diferença de margem
+        const ajuste = (margemDesejada - resultados.margemAtual) / 100;
+        precoVenda = precoVenda * (1 + ajuste);
+        resultados = calcularCustosELucro(precoVenda);
+        iteracoes++;
+    }
+
     // Garantir preço mínimo
     precoVenda = Math.max(precoVenda, 8);
-    
-    // Calcular valores finais
-    const comissao = (precoVenda * comissaoML) / 100;
-    const custoTotal = precoCusto + custosOp + comissao + custoEnvio;
-    const lucro = precoVenda - custoTotal;
-    
+    resultados = calcularCustosELucro(precoVenda);
+
     return {
         precoVenda: precoVenda,
-        comissao: comissao,
+        comissao: resultados.comissao,
+        custoFixo: resultados.custoFixo,
         custoEnvio: custoEnvio,
-        custoTotal: custoTotal,
-        lucro: lucro,
-        margemFinal: (lucro / precoVenda) * 100
+        imposto: resultados.imposto,
+        custoTotal: resultados.custoTotal,
+        lucro: resultados.lucro,
+        margemFinal: resultados.margemAtual
     };
 }
 
-// Event listener do form reverso
+// Atualizar o event listener do form reverso
 document.getElementById('mlCalculatorReverso').addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -296,6 +319,7 @@ document.getElementById('mlCalculatorReverso').addEventListener('submit', functi
         margemDesejada: parseFloat(document.getElementById('margemLucroDesejada').value) || 0,
         custosOp: parseFloat(document.getElementById('custosOpReverso').value) || 0,
         comissaoML: parseFloat(document.getElementById('comissaoMLReverso').value) || 13,
+        impostoPercent: parseFloat(document.getElementById('impostoPercentReverso').value) || 0,
         pagadorFrete: document.getElementById('pagadorFreteReverso').value,
         regiaoEnvio: document.getElementById('regiaoEnvioReverso').value,
         pesoProduto: document.getElementById('pesoProdutoReverso').value,
@@ -308,7 +332,9 @@ document.getElementById('mlCalculatorReverso').addEventListener('submit', functi
     // Atualizar resultados na tela
     document.getElementById('precoVendaSugerido').textContent = resultado.precoVenda.toFixed(2);
     document.getElementById('valorComissaoReverso').textContent = resultado.comissao.toFixed(2);
+    document.getElementById('custoFixoReverso').textContent = resultado.custoFixo.toFixed(2);
     document.getElementById('custoEnvioReverso').textContent = resultado.custoEnvio.toFixed(2);
+    document.getElementById('valorImpostoReverso').textContent = resultado.imposto.toFixed(2);
     document.getElementById('custoTotalReverso').textContent = resultado.custoTotal.toFixed(2);
     document.getElementById('lucroEstimado').textContent = resultado.lucro.toFixed(2);
     document.getElementById('margemFinalReverso').textContent = resultado.margemFinal.toFixed(2);

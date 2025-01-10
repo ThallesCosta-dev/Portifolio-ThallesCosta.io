@@ -89,6 +89,16 @@
                             <input type="number" class="form-control" id="custosOp" step="0.01" min="0" value="0">
                         </div>
 
+                        <!-- Imposto -->
+                        <div class="col-md-6">
+                            <label for="impostoPercent" class="form-label">
+                                Imposto (%)
+                                <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                   title="Percentual de impostos sobre a venda (ex: MEI 6%, Simples Nacional, etc)"></i>
+                            </label>
+                            <input type="number" class="form-control" id="impostoPercent" step="0.1" min="0" max="100" value="0">
+                        </div>
+
                         <!-- Tipo de Plano -->
                         <div class="col-md-6">
                             <label for="tipoPlano" class="form-label">
@@ -199,6 +209,7 @@
                                 <p>Custo Fixo: R$ <span id="custoFixo" class="result-value">0.00</span></p>
                                 <p>Custo de Envio: R$ <span id="custoEnvio" class="result-value">0.00</span></p>
                                 <p>Custo Total: R$ <span id="custoTotal" class="result-value">0.00</span></p>
+                                <p>Imposto: R$ <span id="valorImposto" class="result-value">0.00</span></p>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -242,6 +253,16 @@
                                    title="Custos extras como embalagem, etiquetas, etc"></i>
                             </label>
                             <input type="number" class="form-control" id="custosOpReverso" step="0.01" min="0" value="0">
+                        </div>
+
+                        <!-- Imposto -->
+                        <div class="col-md-6">
+                            <label for="impostoPercentReverso" class="form-label">
+                                Imposto (%)
+                                <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                   title="Percentual de impostos sobre a venda (ex: MEI 6%, Simples Nacional, etc)"></i>
+                            </label>
+                            <input type="number" class="form-control" id="impostoPercentReverso" step="0.1" min="0" max="100" value="0">
                         </div>
 
                         <!-- Novos campos -->
@@ -324,6 +345,7 @@
                             <p>Comissão ML: R$ <span id="valorComissaoReverso" class="result-value">0.00</span></p>
                             <p>Custo Total: R$ <span id="custoTotalReverso" class="result-value">0.00</span></p>
                             <p>Lucro Estimado: R$ <span id="lucroEstimado" class="result-value">0.00</span></p>
+                            <p>Imposto: R$ <span id="valorImpostoReverso" class="result-value">0.00</span></p>
                         </div>
                     </div>
                 </form>
