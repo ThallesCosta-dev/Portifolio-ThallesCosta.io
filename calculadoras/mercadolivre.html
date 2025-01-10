@@ -41,157 +41,292 @@
     <div class="container py-4">
         <h1 class="text-center mb-4"><span id="typed"></span></h1>
         
-        <form id="mlCalculator" class="needs-validation" novalidate>
-            <div class="row g-3">
-                <!-- Preço de Venda -->
-                <div class="col-md-6">
-                    <label for="precoVenda" class="form-label">
-                        Preço de Venda (R$)
-                        <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
-                           title="Preço que você irá anunciar o produto"></i>
-                    </label>
-                    <input type="number" class="form-control" id="precoVenda" step="0.01" min="8" required>
-                </div>
+        <ul class="nav nav-tabs mb-4" id="calculatorTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="calc-normal-tab" data-bs-toggle="tab" data-bs-target="#calc-normal" type="button" role="tab">
+                    Calculadora Normal
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="calc-reversa-tab" data-bs-toggle="tab" data-bs-target="#calc-reversa" type="button" role="tab">
+                    Calculadora Reversa
+                </button>
+            </li>
+        </ul>
 
-                <!-- Preço de Custo -->
-                <div class="col-md-6">
-                    <label for="precoCusto" class="form-label">
-                        Preço de Custo (R$)
-                        <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
-                           title="Quanto você pagou pelo produto"></i>
-                    </label>
-                    <input type="number" class="form-control" id="precoCusto" step="0.01" min="0" required>
-                </div>
-
-                <!-- Custos Operacionais -->
-                <div class="col-md-6">
-                    <label for="custosOp" class="form-label">
-                        Custos Operacionais (R$)
-                        <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
-                           title="Custos extras como embalagem, etiquetas, etc"></i>
-                    </label>
-                    <input type="number" class="form-control" id="custosOp" step="0.01" min="0" value="0">
-                </div>
-
-                <!-- Tipo de Plano -->
-                <div class="col-md-6">
-                    <label for="tipoPlano" class="form-label">
-                        Tipo de Plano
-                        <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
-                           title="Seu plano no Mercado Livre"></i>
-                    </label>
-                    <select class="form-select" id="tipoPlano" required>
-                        <option value="classico">Clássico (13%)</option>
-                        <option value="premium">Premium (16%)</option>
-                        <option value="full">Full (20%)</option>
-                        <option value="personalizado">Personalizado</option>
-                    </select>
-                </div>
-
-                <!-- Comissão Personalizada -->
-                <div class="col-md-6" id="comissaoPersonalizada">
-                    <label for="comissaoML" class="form-label">
-                        Comissão ML (%)
-                        <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
-                           title="Porcentagem cobrada pelo Mercado Livre"></i>
-                    </label>
-                    <input type="number" class="form-control" id="comissaoML" step="0.1" min="0" max="100" value="13">
-                </div>
-
-                <!-- Pagador do Frete -->
-                <div class="col-md-6">
-                    <label for="pagadorFrete" class="form-label">
-                        Quem paga o frete?
-                        <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
-                           title="Escolha quem pagará o frete"></i>
-                    </label>
-                    <select class="form-select" id="pagadorFrete" required>
-                        <option value="comprador">Comprador</option>
-                        <option value="vendedor">Vendedor (Frete Grátis)</option>
-                    </select>
-                </div>
-
-                <!-- Opções de Envio -->
-                <div id="opcoesEnvio">
+        <div class="tab-content" id="calculatorTabsContent">
+            <!-- Tab Calculadora Normal -->
+            <div class="tab-pane fade show active" id="calc-normal" role="tabpanel">
+                <form id="mlCalculator" class="needs-validation" novalidate>
                     <div class="row g-3">
-                        <!-- Região de Envio -->
+                        <!-- Preço de Venda -->
                         <div class="col-md-6">
-                            <label for="regiaoEnvio" class="form-label">Região de Envio</label>
-                            <select class="form-select" id="regiaoEnvio" required>
-                                <option value="sul_sudeste">Sul e Sudeste</option>
-                                <option value="outros">Outras Regiões</option>
+                            <label for="precoVenda" class="form-label">
+                                Preço de Venda (R$)
+                                <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                   title="Preço que você irá anunciar o produto"></i>
+                            </label>
+                            <input type="number" class="form-control" id="precoVenda" step="0.01" min="8" required>
+                        </div>
+
+                        <!-- Preço de Custo -->
+                        <div class="col-md-6">
+                            <label for="precoCusto" class="form-label">
+                                Preço de Custo (R$)
+                                <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                   title="Quanto você pagou pelo produto"></i>
+                            </label>
+                            <input type="number" class="form-control" id="precoCusto" step="0.01" min="0" required>
+                        </div>
+
+                        <!-- Custos Operacionais -->
+                        <div class="col-md-6">
+                            <label for="custosOp" class="form-label">
+                                Custos Operacionais (R$)
+                                <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                   title="Custos extras como embalagem, etiquetas, etc"></i>
+                            </label>
+                            <input type="number" class="form-control" id="custosOp" step="0.01" min="0" value="0">
+                        </div>
+
+                        <!-- Tipo de Plano -->
+                        <div class="col-md-6">
+                            <label for="tipoPlano" class="form-label">
+                                Tipo de Plano
+                                <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                   title="Seu plano no Mercado Livre"></i>
+                            </label>
+                            <select class="form-select" id="tipoPlano" required>
+                                <option value="classico">Clássico (13%)</option>
+                                <option value="premium">Premium (16%)</option>
+                                <option value="full">Full (20%)</option>
+                                <option value="personalizado">Personalizado</option>
                             </select>
                         </div>
 
-                        <!-- Peso do Produto -->
+                        <!-- Comissão Personalizada -->
+                        <div class="col-md-6" id="comissaoPersonalizada">
+                            <label for="comissaoML" class="form-label">
+                                Comissão ML (%)
+                                <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                   title="Porcentagem cobrada pelo Mercado Livre"></i>
+                            </label>
+                            <input type="number" class="form-control" id="comissaoML" step="0.1" min="0" max="100" value="13">
+                        </div>
+
+                        <!-- Pagador do Frete -->
                         <div class="col-md-6">
-                            <label for="pesoProduto" class="form-label">Peso do Produto</label>
-                            <select class="form-select" id="pesoProduto" required>
-                                <option value="300g">Até 300g</option>
-                                <option value="500g">Até 500g</option>
-                                <option value="1kg">Até 1kg</option>
-                                <option value="2kg">Até 2kg</option>
-                                <option value="3kg">Até 3kg</option>
-                                <option value="4kg">Até 4kg</option>
-                                <option value="5kg">Até 5kg</option>
+                            <label for="pagadorFrete" class="form-label">
+                                Quem paga o frete?
+                                <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                   title="Escolha quem pagará o frete"></i>
+                            </label>
+                            <select class="form-select" id="pagadorFrete" required>
+                                <option value="comprador">Comprador</option>
+                                <option value="vendedor">Vendedor (Frete Grátis)</option>
                             </select>
                         </div>
 
-                        <!-- Reputação -->
-                        <div class="col-md-6">
-                            <label for="reputacao" class="form-label">Reputação</label>
-                            <select class="form-select" id="reputacao" required>
-                                <option value="verde">Verde (50% desconto)</option>
-                                <option value="amarela">Amarela (40% desconto)</option>
-                                <option value="vermelha">Vermelha (sem desconto)</option>
-                            </select>
+                        <!-- Opções de Envio -->
+                        <div id="opcoesEnvio">
+                            <div class="row g-3">
+                                <!-- Região de Envio -->
+                                <div class="col-md-6">
+                                    <label for="regiaoEnvio" class="form-label">Região de Envio</label>
+                                    <select class="form-select" id="regiaoEnvio" required>
+                                        <option value="sul_sudeste">Sul e Sudeste</option>
+                                        <option value="outros">Outras Regiões</option>
+                                    </select>
+                                </div>
+
+                                <!-- Peso do Produto -->
+                                <div class="col-md-6">
+                                    <label for="pesoProduto" class="form-label">Peso do Produto</label>
+                                    <select class="form-select" id="pesoProduto" required>
+                                        <option value="300g">Até 300g</option>
+                                        <option value="500g">Até 500g</option>
+                                        <option value="1kg">Até 1kg</option>
+                                        <option value="2kg">Até 2kg</option>
+                                        <option value="3kg">Até 3kg</option>
+                                        <option value="4kg">Até 4kg</option>
+                                        <option value="5kg">Até 5kg</option>
+                                    </select>
+                                </div>
+
+                                <!-- Reputação -->
+                                <div class="col-md-6">
+                                    <label for="reputacao" class="form-label">Reputação</label>
+                                    <select class="form-select" id="reputacao" required>
+                                        <option value="verde">Verde (50% desconto)</option>
+                                        <option value="amarela">Amarela (40% desconto)</option>
+                                        <option value="vermelha">Vermelha (sem desconto)</option>
+                                    </select>
+                                </div>
+
+                                <!-- Tipo de Envio -->
+                                <div class="col-md-6">
+                                    <label for="tipoEnvio" class="form-label">Tipo de Envio</label>
+                                    <select class="form-select" id="tipoEnvio" required>
+                                        <option value="normal">Normal</option>
+                                        <option value="full">Full (20% mais barato)</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
 
-                        <!-- Tipo de Envio -->
-                        <div class="col-md-6">
-                            <label for="tipoEnvio" class="form-label">Tipo de Envio</label>
-                            <select class="form-select" id="tipoEnvio" required>
-                                <option value="normal">Normal</option>
-                                <option value="full">Full (20% mais barato)</option>
-                            </select>
+                        <!-- Alerta de Frete -->
+                        <div class="col-12">
+                            <div class="alert alert-warning" id="alertaFrete" role="alert">
+                                <i class="bi bi-exclamation-triangle-fill"></i>
+                                Para produtos abaixo de R$ 79, o vendedor paga 50% do frete.
+                            </div>
+                        </div>
+
+                        <!-- Botão Calcular -->
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary w-100">Calcular</button>
                         </div>
                     </div>
-                </div>
+                </form>
 
-                <!-- Alerta de Frete -->
-                <div class="col-12">
-                    <div class="alert alert-warning" id="alertaFrete" role="alert">
-                        <i class="bi bi-exclamation-triangle-fill"></i>
-                        Para produtos abaixo de R$ 79, o vendedor paga 50% do frete.
+                <!-- Resultados -->
+                <div class="mt-4">
+                    <h3>Resultados:</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="result-box">
+                                <p>Comissão ML: R$ <span id="valorComissao" class="result-value">0.00</span></p>
+                                <p>Custo Fixo: R$ <span id="custoFixo" class="result-value">0.00</span></p>
+                                <p>Custo de Envio: R$ <span id="custoEnvio" class="result-value">0.00</span></p>
+                                <p>Custo Total: R$ <span id="custoTotal" class="result-value">0.00</span></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="result-box">
+                                <p>Receita Líquida: R$ <span id="receitaLiquida" class="result-value">0.00</span></p>
+                                <p>Lucro: R$ <span id="lucro" class="result-value">0.00</span></p>
+                                <p>Margem de Lucro: <span id="margemLucro" class="result-value">0.00</span>%</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <!-- Botão Calcular -->
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary w-100">Calcular</button>
                 </div>
             </div>
-        </form>
 
-        <!-- Resultados -->
-        <div class="mt-4">
-            <h3>Resultados:</h3>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="result-box">
-                        <p>Comissão ML: R$ <span id="valorComissao" class="result-value">0.00</span></p>
-                        <p>Custo Fixo: R$ <span id="custoFixo" class="result-value">0.00</span></p>
-                        <p>Custo de Envio: R$ <span id="custoEnvio" class="result-value">0.00</span></p>
-                        <p>Custo Total: R$ <span id="custoTotal" class="result-value">0.00</span></p>
+            <!-- Tab Calculadora Reversa -->
+            <div class="tab-pane fade" id="calc-reversa" role="tabpanel">
+                <form id="mlCalculatorReverso" class="needs-validation" novalidate>
+                    <div class="row g-3">
+                        <!-- Preço de Custo -->
+                        <div class="col-md-6">
+                            <label for="precoCustoReverso" class="form-label">
+                                Preço de Custo (R$)
+                                <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                   title="Quanto você pagou pelo produto"></i>
+                            </label>
+                            <input type="number" class="form-control" id="precoCustoReverso" step="0.01" min="0" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="margemLucroDesejada" class="form-label">
+                                Margem de Lucro Desejada (%)
+                                <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                   title="Qual margem de lucro você deseja obter"></i>
+                            </label>
+                            <input type="number" class="form-control" id="margemLucroDesejada" step="0.1" min="0" max="100" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="custosOpReverso" class="form-label">
+                                Custos Operacionais (R$)
+                                <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                   title="Custos extras como embalagem, etiquetas, etc"></i>
+                            </label>
+                            <input type="number" class="form-control" id="custosOpReverso" step="0.01" min="0" value="0">
+                        </div>
+
+                        <!-- Novos campos -->
+                        <div class="col-md-6">
+                            <label for="tipoPlanoReverso" class="form-label">Tipo de Plano</label>
+                            <select class="form-select" id="tipoPlanoReverso" required>
+                                <option value="classico">Clássico (13%)</option>
+                                <option value="premium">Premium (16%)</option>
+                                <option value="full">Full (20%)</option>
+                                <option value="personalizado">Personalizado</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6" id="comissaoPersonalizadaReverso" style="display: none;">
+                            <label for="comissaoMLReverso" class="form-label">Comissão ML (%)</label>
+                            <input type="number" class="form-control" id="comissaoMLReverso" step="0.1" min="0" max="100" value="13">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="pagadorFreteReverso" class="form-label">Quem paga o frete?</label>
+                            <select class="form-select" id="pagadorFreteReverso" required>
+                                <option value="comprador">Comprador</option>
+                                <option value="vendedor">Vendedor (Frete Grátis)</option>
+                            </select>
+                        </div>
+
+                        <div id="opcoesEnvioReverso" style="display: none;">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="regiaoEnvioReverso" class="form-label">Região de Envio</label>
+                                    <select class="form-select" id="regiaoEnvioReverso" required>
+                                        <option value="sul_sudeste">Sul e Sudeste</option>
+                                        <option value="outros">Outras Regiões</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="pesoProdutoReverso" class="form-label">Peso do Produto</label>
+                                    <select class="form-select" id="pesoProdutoReverso" required>
+                                        <option value="300g">Até 300g</option>
+                                        <option value="500g">Até 500g</option>
+                                        <option value="1kg">Até 1kg</option>
+                                        <option value="2kg">Até 2kg</option>
+                                        <option value="3kg">Até 3kg</option>
+                                        <option value="4kg">Até 4kg</option>
+                                        <option value="5kg">Até 5kg</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="reputacaoReverso" class="form-label">Reputação</label>
+                                    <select class="form-select" id="reputacaoReverso" required>
+                                        <option value="verde">Verde (50% desconto)</option>
+                                        <option value="amarela">Amarela (40% desconto)</option>
+                                        <option value="vermelha">Vermelha (sem desconto)</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="tipoEnvioReverso" class="form-label">Tipo de Envio</label>
+                                    <select class="form-select" id="tipoEnvioReverso" required>
+                                        <option value="normal">Normal</option>
+                                        <option value="full">Full (20% mais barato)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botão Calcular -->
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary w-100">Calcular Preço de Venda</button>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="result-box">
-                        <p>Receita Líquida: R$ <span id="receitaLiquida" class="result-value">0.00</span></p>
-                        <p>Lucro: R$ <span id="lucro" class="result-value">0.00</span></p>
-                        <p>Margem de Lucro: <span id="margemLucro" class="result-value">0.00</span>%</p>
+
+                    <!-- Resultados da Calculadora Reversa -->
+                    <div class="mt-4">
+                        <h3>Resultado:</h3>
+                        <div class="result-box">
+                            <p>Preço de Venda Sugerido: R$ <span id="precoVendaSugerido" class="result-value">0.00</span></p>
+                            <p>Comissão ML: R$ <span id="valorComissaoReverso" class="result-value">0.00</span></p>
+                            <p>Custo Total: R$ <span id="custoTotalReverso" class="result-value">0.00</span></p>
+                            <p>Lucro Estimado: R$ <span id="lucroEstimado" class="result-value">0.00</span></p>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

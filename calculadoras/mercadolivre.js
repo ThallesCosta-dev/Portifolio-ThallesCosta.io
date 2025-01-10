@@ -193,3 +193,123 @@ document.getElementById('precoVenda').addEventListener('input', function() {
         alertaFrete.style.display = precoVenda < 79 ? 'block' : 'none';
     }
 });
+
+// Eventos para campos da calculadora reversa
+document.getElementById('tipoPlanoReverso').addEventListener('change', function() {
+    const comissaoDiv = document.getElementById('comissaoPersonalizadaReverso');
+    const comissaoInput = document.getElementById('comissaoMLReverso');
+    
+    if (this.value === 'personalizado') {
+        comissaoDiv.style.display = 'block';
+    } else {
+        comissaoDiv.style.display = 'none';
+        switch(this.value) {
+            case 'classico':
+                comissaoInput.value = 13;
+                break;
+            case 'premium':
+                comissaoInput.value = 16;
+                break;
+            case 'full':
+                comissaoInput.value = 20;
+                break;
+        }
+    }
+});
+
+document.getElementById('pagadorFreteReverso').addEventListener('change', function() {
+    const opcoesEnvio = document.getElementById('opcoesEnvioReverso');
+    if (this.value === 'vendedor') {
+        opcoesEnvio.style.display = 'block';
+    } else {
+        opcoesEnvio.style.display = 'none';
+    }
+});
+
+// Função de cálculo atualizada
+function calcularPrecoVendaReverso(dados) {
+    const {
+        precoCusto,
+        margemDesejada,
+        custosOp,
+        comissaoML,
+        pagadorFrete,
+        regiaoEnvio,
+        pesoProduto,
+        reputacao,
+        tipoEnvio
+    } = dados;
+
+    // Calcular custo de envio
+    let custoEnvio = 0;
+    if (pagadorFrete === 'vendedor') {
+        const valorBaseFrete = tabelaFrete[regiaoEnvio][pesoProduto];
+        let descontoReputacao = 0;
+        
+        switch(reputacao) {
+            case 'verde':
+                descontoReputacao = 0.50;
+                break;
+            case 'amarela':
+                descontoReputacao = 0.40;
+                break;
+            case 'vermelha':
+                descontoReputacao = 0;
+                break;
+        }
+
+        custoEnvio = valorBaseFrete * (1 - descontoReputacao);
+
+        if (tipoEnvio === 'full') {
+            custoEnvio = custoEnvio * 0.8;
+        }
+    }
+
+    // Calcular preço de venda necessário
+    const custoBase = precoCusto + custosOp;
+    let precoVenda = (custoBase + custoEnvio) / (1 - ((comissaoML + margemDesejada)/100));
+    
+    // Garantir preço mínimo
+    precoVenda = Math.max(precoVenda, 8);
+    
+    // Calcular valores finais
+    const comissao = (precoVenda * comissaoML) / 100;
+    const custoTotal = precoCusto + custosOp + comissao + custoEnvio;
+    const lucro = precoVenda - custoTotal;
+    
+    return {
+        precoVenda: precoVenda,
+        comissao: comissao,
+        custoEnvio: custoEnvio,
+        custoTotal: custoTotal,
+        lucro: lucro,
+        margemFinal: (lucro / precoVenda) * 100
+    };
+}
+
+// Event listener do form reverso
+document.getElementById('mlCalculatorReverso').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const dados = {
+        precoCusto: parseFloat(document.getElementById('precoCustoReverso').value) || 0,
+        margemDesejada: parseFloat(document.getElementById('margemLucroDesejada').value) || 0,
+        custosOp: parseFloat(document.getElementById('custosOpReverso').value) || 0,
+        comissaoML: parseFloat(document.getElementById('comissaoMLReverso').value) || 13,
+        pagadorFrete: document.getElementById('pagadorFreteReverso').value,
+        regiaoEnvio: document.getElementById('regiaoEnvioReverso').value,
+        pesoProduto: document.getElementById('pesoProdutoReverso').value,
+        reputacao: document.getElementById('reputacaoReverso').value,
+        tipoEnvio: document.getElementById('tipoEnvioReverso').value
+    };
+    
+    const resultado = calcularPrecoVendaReverso(dados);
+    
+    // Atualizar resultados na tela
+    document.getElementById('precoVendaSugerido').textContent = resultado.precoVenda.toFixed(2);
+    document.getElementById('valorComissaoReverso').textContent = resultado.comissao.toFixed(2);
+    document.getElementById('custoEnvioReverso').textContent = resultado.custoEnvio.toFixed(2);
+    document.getElementById('custoTotalReverso').textContent = resultado.custoTotal.toFixed(2);
+    document.getElementById('lucroEstimado').textContent = resultado.lucro.toFixed(2);
+    document.getElementById('margemFinalReverso').textContent = resultado.margemFinal.toFixed(2);
+});
