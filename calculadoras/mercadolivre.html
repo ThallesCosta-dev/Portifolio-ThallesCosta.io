@@ -4,405 +4,201 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora Mercado Livre</title>
-    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #040b14;
-            color: #fff;
-            font-family: "Open Sans", sans-serif;
+        .tooltip {
+            position: absolute;
+            z-index: 1070;
+            display: block;
+            font-size: 0.875rem;
         }
-        
-        .calculator-container {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 20px;
-        }
-
-        .calculator-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            padding: 30px;
-            color: #fff;
-        }
-
-        .calculator-title {
-            color: #fff;
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .calculator-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-
-        .calculator-tab {
-            background: rgba(20, 157, 221, 0.1);
-            color: #fff;
-            border: 1px solid rgba(20, 157, 221, 0.3);
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            flex: 1;
-            text-align: center;
-        }
-
-        .calculator-tab.active {
-            background: #149ddd;
-        }
-
-        .case-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
         .form-label {
-            color: #fff;
-            margin-bottom: 8px;
+            font-weight: 500;
         }
-
-        .form-control {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(20, 157, 221, 0.3);
-            color: #fff;
-            border-radius: 8px;
-            padding: 10px;
+        #alertaFrete {
+            display: none;
         }
-
-        .form-control:focus {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: #149ddd;
-            color: #fff;
-            box-shadow: 0 0 0 0.2rem rgba(20, 157, 221, 0.25);
+        #comissaoPersonalizada {
+            display: none;
         }
-
-        .btn-calculate {
-            background: #149ddd;
-            color: #fff;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            width: 100%;
-            margin-top: 20px;
-            transition: all 0.3s ease;
+        #opcoesEnvio {
+            display: none;
         }
-
-        .btn-calculate:hover {
-            background: #117db1;
-            transform: translateY(-2px);
-        }
-
-        .result-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        .result-title {
-            color: #fff;
-            font-size: 18px;
+        .result-box {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
             margin-bottom: 10px;
         }
-
         .result-value {
-            color: #149ddd;
-            font-size: 16px;
-        }
-
-        .back-button {
-            color: #149ddd;
-            text-decoration: none;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-
-        .back-button:hover {
-            color: #117db1;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 30px 0;
-            margin-top: 50px;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .footer .copyright {
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .footer .copyright span {
-            opacity: 0.8;
-        }
-
-        .footer .copyright strong {
-            color: #149ddd;
-        }
-
-        .info-icon {
-            color: #149ddd;
-            font-size: 20px;
-            cursor: help;
-            margin-left: 8px;
-        }
-
-        .text-muted {
-            color: rgba(255, 255, 255, 0.6) !important;
-            font-size: 12px;
-        }
-
-        .result-value.small {
-            font-size: 0.9em;
-        }
-        
-        .result-value.small p {
-            margin-bottom: 0.5rem;
-        }
-        
-        .result-value.small hr {
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        .result-value.small .text-muted {
-            color: rgba(255, 255, 255, 0.6) !important;
+            font-weight: bold;
+            color: #0d6efd;
         }
     </style>
 </head>
 <body>
-    <div class="calculator-container">
-        <a href="index.html" class="back-button">
-            <i class="bi bi-arrow-left"></i> Voltar para Métricas
-        </a>
+    <div class="container py-4">
+        <h1 class="text-center mb-4"><span id="typed"></span></h1>
+        
+        <form id="mlCalculator" class="needs-validation" novalidate>
+            <div class="row g-3">
+                <!-- Preço de Venda -->
+                <div class="col-md-6">
+                    <label for="precoVenda" class="form-label">
+                        Preço de Venda (R$)
+                        <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                           title="Preço que você irá anunciar o produto"></i>
+                    </label>
+                    <input type="number" class="form-control" id="precoVenda" step="0.01" min="8" required>
+                </div>
 
-        <div class="calculator-card">
-            <div class="calculator-title">
-                <span id="typed"></span>
-                <i class="bi bi-info-circle info-icon" data-bs-toggle="tooltip" data-bs-placement="right" 
-                   title="Calcule custos e lucros para vendas no Mercado Livre"></i>
-            </div>
+                <!-- Preço de Custo -->
+                <div class="col-md-6">
+                    <label for="precoCusto" class="form-label">
+                        Preço de Custo (R$)
+                        <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                           title="Quanto você pagou pelo produto"></i>
+                    </label>
+                    <input type="number" class="form-control" id="precoCusto" step="0.01" min="0" required>
+                </div>
 
-            <form id="mlCalculator">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label class="form-label">Tipo de Plano</label>
-                            <select class="form-control" id="tipoPlano">
-                                <option value="classico">Clássico (13%)</option>
-                                <option value="premium">Premium (16%)</option>
-                                <option value="full">Full (20%)</option>
-                                <option value="personalizado">Personalizado</option>
+                <!-- Custos Operacionais -->
+                <div class="col-md-6">
+                    <label for="custosOp" class="form-label">
+                        Custos Operacionais (R$)
+                        <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                           title="Custos extras como embalagem, etiquetas, etc"></i>
+                    </label>
+                    <input type="number" class="form-control" id="custosOp" step="0.01" min="0" value="0">
+                </div>
+
+                <!-- Tipo de Plano -->
+                <div class="col-md-6">
+                    <label for="tipoPlano" class="form-label">
+                        Tipo de Plano
+                        <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                           title="Seu plano no Mercado Livre"></i>
+                    </label>
+                    <select class="form-select" id="tipoPlano" required>
+                        <option value="classico">Clássico (13%)</option>
+                        <option value="premium">Premium (16%)</option>
+                        <option value="full">Full (20%)</option>
+                        <option value="personalizado">Personalizado</option>
+                    </select>
+                </div>
+
+                <!-- Comissão Personalizada -->
+                <div class="col-md-6" id="comissaoPersonalizada">
+                    <label for="comissaoML" class="form-label">
+                        Comissão ML (%)
+                        <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                           title="Porcentagem cobrada pelo Mercado Livre"></i>
+                    </label>
+                    <input type="number" class="form-control" id="comissaoML" step="0.1" min="0" max="100" value="13">
+                </div>
+
+                <!-- Pagador do Frete -->
+                <div class="col-md-6">
+                    <label for="pagadorFrete" class="form-label">
+                        Quem paga o frete?
+                        <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                           title="Escolha quem pagará o frete"></i>
+                    </label>
+                    <select class="form-select" id="pagadorFrete" required>
+                        <option value="comprador">Comprador</option>
+                        <option value="vendedor">Vendedor (Frete Grátis)</option>
+                    </select>
+                </div>
+
+                <!-- Opções de Envio -->
+                <div id="opcoesEnvio">
+                    <div class="row g-3">
+                        <!-- Região de Envio -->
+                        <div class="col-md-6">
+                            <label for="regiaoEnvio" class="form-label">Região de Envio</label>
+                            <select class="form-select" id="regiaoEnvio" required>
+                                <option value="sul_sudeste">Sul e Sudeste</option>
+                                <option value="outros">Outras Regiões</option>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Preço de Venda (R$)</label>
-                            <input type="number" class="form-control" id="precoVenda" min="8" step="0.01" required>
-                            <small class="text-muted">Mínimo R$ 8,00</small>
+
+                        <!-- Peso do Produto -->
+                        <div class="col-md-6">
+                            <label for="pesoProduto" class="form-label">Peso do Produto</label>
+                            <select class="form-select" id="pesoProduto" required>
+                                <option value="300g">Até 300g</option>
+                                <option value="500g">Até 500g</option>
+                                <option value="1kg">Até 1kg</option>
+                                <option value="2kg">Até 2kg</option>
+                                <option value="3kg">Até 3kg</option>
+                                <option value="4kg">Até 4kg</option>
+                                <option value="5kg">Até 5kg</option>
+                            </select>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Preço de Custo (R$)</label>
-                            <input type="number" class="form-control" id="precoCusto" step="0.01" required>
+
+                        <!-- Reputação -->
+                        <div class="col-md-6">
+                            <label for="reputacao" class="form-label">Reputação</label>
+                            <select class="form-select" id="reputacao" required>
+                                <option value="verde">Verde (50% desconto)</option>
+                                <option value="amarela">Amarela (40% desconto)</option>
+                                <option value="vermelha">Vermelha (sem desconto)</option>
+                            </select>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Custos Operacionais (R$)</label>
-                            <input type="number" class="form-control" id="custosOp" step="0.01" required>
-                        </div>
-                        <div class="mb-3" id="comissaoPersonalizada" style="display: none;">
-                            <label class="form-label">Comissão ML (%)</label>
-                            <input type="number" class="form-control" id="comissaoML" value="13" step="0.01">
-                            <small class="text-muted">Digite a comissão personalizada</small>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-6">
-                        <div id="opcoesEnvio" style="display: none;">
-                            <div class="mb-3">
-                                <label class="form-label">Quem paga o frete?</label>
-                                <select class="form-control" id="pagadorFrete">
-                                    <option value="cliente">Cliente paga o frete</option>
-                                    <option value="vendedor">Frete grátis (vendedor paga)</option>
-                                </select>
-                                <small class="text-muted">Frete grátis pode aumentar suas vendas</small>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Reputação do Vendedor</label>
-                                <select class="form-control" id="reputacao">
-                                    <option value="verde">MercadoLíder/Verde (50% desconto)</option>
-                                    <option value="amarela">Amarela/Sem reputação (40% desconto)</option>
-                                    <option value="vermelha">Laranja/Vermelha (sem desconto)</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Região de Envio</label>
-                                <select class="form-control" id="regiaoEnvio">
-                                    <option value="sul_sudeste">Sul/Sudeste</option>
-                                    <option value="outros">Outras Regiões</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Peso do Produto</label>
-                                <select class="form-control" id="pesoProduto">
-                                    <option value="300g">Até 300g</option>
-                                    <option value="500g">300g a 500g</option>
-                                    <option value="1kg">500g a 1kg</option>
-                                    <option value="2kg">1kg a 2kg</option>
-                                    <option value="3kg">2kg a 3kg</option>
-                                    <option value="4kg">3kg a 4kg</option>
-                                    <option value="5kg">4kg a 5kg</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Tipo de Envio</label>
-                                <select class="form-control" id="tipoEnvio">
-                                    <option value="full">Full</option>
-                                    <option value="outros">Outros</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div id="alertaFrete" class="alert alert-info" style="display: none;">
-                            <i class="bi bi-info-circle"></i> Para produtos abaixo de R$79, o vendedor paga 50% do frete.
+
+                        <!-- Tipo de Envio -->
+                        <div class="col-md-6">
+                            <label for="tipoEnvio" class="form-label">Tipo de Envio</label>
+                            <select class="form-select" id="tipoEnvio" required>
+                                <option value="normal">Normal</option>
+                                <option value="full">Full (20% mais barato)</option>
+                            </select>
                         </div>
                     </div>
                 </div>
 
-                <div class="row mt-4">
-                    <div class="col-md-6">
-                        <div class="result-card">
-                            <div class="result-title">Resultados</div>
-                            <div class="result-value">
-                                <p>Receita Líquida: R$ <span id="receitaLiquida">0.00</span></p>
-                                <p>Lucro: R$ <span id="lucro">0.00</span></p>
-                                <p>Margem de Lucro: <span id="margemLucro">0.00</span>%</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-6">
-                        <div class="result-card">
-                            <div class="result-title">Detalhamento dos Custos</div>
-                            <div class="result-value small">
-                                <p>Comissão ML: R$ <span id="valorComissao">0.00</span></p>
-                                <p>Custo Fixo: R$ <span id="custoFixo">0.00</span></p>
-                                <p>Custo de Envio: R$ <span id="custoEnvio">0.00</span></p>
-                                <hr class="my-2">
-                                <p class="text-muted">
-                                    <strong>Custos Totais: R$ <span id="custoTotal">0.00</span></strong>
-                                </p>
-                            </div>
-                        </div>
+                <!-- Alerta de Frete -->
+                <div class="col-12">
+                    <div class="alert alert-warning" id="alertaFrete" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                        Para produtos abaixo de R$ 79, o vendedor paga 50% do frete.
                     </div>
                 </div>
-                <button type="submit" class="btn-calculate">Calcular</button>
-            </form>
-        </div>
 
-        <footer id="footer" class="footer">
-            <div class="container">
-                <div class="copyright text-center">
-                    <p>© <span>Copyright</span> <strong class="px-1">Thalles Costa 2025</strong> <span>Todos os direitos reservados</span></p>
+                <!-- Botão Calcular -->
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary w-100">Calcular</button>
                 </div>
             </div>
-        </footer>
+        </form>
+
+        <!-- Resultados -->
+        <div class="mt-4">
+            <h3>Resultados:</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="result-box">
+                        <p>Comissão ML: R$ <span id="valorComissao" class="result-value">0.00</span></p>
+                        <p>Custo Fixo: R$ <span id="custoFixo" class="result-value">0.00</span></p>
+                        <p>Custo de Envio: R$ <span id="custoEnvio" class="result-value">0.00</span></p>
+                        <p>Custo Total: R$ <span id="custoTotal" class="result-value">0.00</span></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="result-box">
+                        <p>Receita Líquida: R$ <span id="receitaLiquida" class="result-value">0.00</span></p>
+                        <p>Lucro: R$ <span id="lucro" class="result-value">0.00</span></p>
+                        <p>Margem de Lucro: <span id="margemLucro" class="result-value">0.00</span>%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Typed.js
-        var typed = new Typed('#typed', {
-            strings: ['Calculadora Mercado Livre'],
-            typeSpeed: 100,
-            backSpeed: 50,
-            loop: false,
-            showCursor: true,
-            cursorChar: '|',
-            autoInsertCss: true,
-            onComplete: (self) => {
-                setTimeout(() => {
-                    self.cursor.style.display = 'none';
-                }, 1500);
-            }
-        });
-
-        // Inicializar tooltips
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-        });
-
-        // Mostrar/ocultar campo de comissão personalizada
-        document.getElementById('tipoPlano').addEventListener('change', function() {
-            const comissaoDiv = document.getElementById('comissaoPersonalizada');
-            const comissaoInput = document.getElementById('comissaoML');
-            
-            if (this.value === 'personalizado') {
-                comissaoDiv.style.display = 'block';
-            } else {
-                comissaoDiv.style.display = 'none';
-                switch(this.value) {
-                    case 'classico':
-                        comissaoInput.value = 13;
-                        break;
-                    case 'premium':
-                        comissaoInput.value = 16;
-                        break;
-                    case 'full':
-                        comissaoInput.value = 20;
-                        break;
-                }
-            }
-        });
-
-        // Cálculos
-        document.getElementById('mlCalculator').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const precoVenda = parseFloat(document.getElementById('precoVenda').value) || 0;
-            const precoCusto = parseFloat(document.getElementById('precoCusto').value) || 0;
-            const custosOp = parseFloat(document.getElementById('custosOp').value) || 0;
-            const comissaoML = parseFloat(document.getElementById('comissaoML').value) || 13;
-
-            // Validar preço mínimo
-            if (precoVenda < 8) {
-                alert("O preço mínimo de venda deve ser R$ 8,00");
-                return;
-            }
-
-            // Calcular custo fixo baseado no preço
-            let custoFixo = 0;
-            if (precoVenda < 79) {
-                if (precoVenda <= 29) custoFixo = 6.25;
-                else if (precoVenda <= 50) custoFixo = 6.50;
-                else custoFixo = 6.75;
-            }
-
-            // Calcular comissão ML
-            const valorComissao = (precoVenda * comissaoML) / 100;
-
-            // Calcular custos totais
-            const custoTotal = valorComissao + custoFixo + precoCusto + custosOp;
-
-            // Calcular resultados
-            const receitaLiquida = precoVenda - valorComissao - custoFixo;
-            const lucro = receitaLiquida - precoCusto - custosOp;
-            const margemLucro = (lucro / precoVenda) * 100;
-
-            // Atualizar resultados
-            document.getElementById('valorComissao').textContent = valorComissao.toFixed(2);
-            document.getElementById('custoFixo').textContent = custoFixo.toFixed(2);
-            document.getElementById('custoTotal').textContent = custoTotal.toFixed(2);
-            document.getElementById('receitaLiquida').textContent = receitaLiquida.toFixed(2);
-            document.getElementById('lucro').textContent = lucro.toFixed(2);
-            document.getElementById('margemLucro').textContent = margemLucro.toFixed(2);
-        });
-    </script>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="mercadolivre.js"></script>
 </body>
 </html> 

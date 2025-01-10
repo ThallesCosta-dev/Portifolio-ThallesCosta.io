@@ -1,30 +1,55 @@
-// Tabela de preços de envio por região e peso
-const tabelaFretes = {
-    sul_sudeste: {
-        '300g': 19.90,
-        '500g': 21.90,
-        '1kg': 24.90,
-        '2kg': 29.90,
-        '3kg': 34.90,
-        '4kg': 39.90,
-        '5kg': 44.90
-    },
-    outros: {
-        '300g': 24.90,
-        '500g': 27.90,
-        '1kg': 31.90,
-        '2kg': 37.90,
-        '3kg': 43.90,
-        '4kg': 49.90,
-        '5kg': 55.90
-    }
-};
+// Inicializar tooltips
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+});
 
-// Descontos por reputação
-const descontosReputacao = {
-    verde: 0.50,      // 50% de desconto
-    amarela: 0.40,    // 40% de desconto
-    vermelha: 0       // sem desconto
+// Typed.js
+var typed = new Typed('#typed', {
+    strings: ['Calculadora Mercado Livre'],
+    typeSpeed: 100,
+    backSpeed: 50,
+    loop: false,
+    showCursor: true,
+    cursorChar: '|',
+    autoInsertCss: true,
+    onComplete: (self) => {
+        setTimeout(() => {
+            self.cursor.style.display = 'none';
+        }, 1500);
+    }
+});
+
+// Tabela de preços de frete atualizada
+const tabelaFrete = {
+    'sul_sudeste': {
+        '300g': 39.90,
+        '500g': 40.90,
+        '1kg': 42.90,
+        '2kg': 45.90,
+        '3kg': 47.90,
+        '4kg': 49.90,
+        '5kg': 51.90,
+        '9kg': 83.90,
+        '13kg': 131.90,
+        '17kg': 146.90,
+        '23kg': 171.90,
+        '30kg': 197.90
+    },
+    'outros': {
+        '300g': 62.90,
+        '500g': 64.90,
+        '1kg': 68.90,
+        '2kg': 83.90,
+        '3kg': 106.40,
+        '4kg': 109.60,
+        '5kg': 112.70,
+        '9kg': 130.50,
+        '13kg': 189.80,
+        '17kg': 250.10,
+        '23kg': 281.10,
+        '30kg': 293.40
+    }
 };
 
 // Mostrar/ocultar campo de comissão personalizada
@@ -50,18 +75,15 @@ document.getElementById('tipoPlano').addEventListener('change', function() {
     }
 });
 
-// Adicionar evento para monitorar mudanças no preço de venda
-document.getElementById('precoVenda').addEventListener('input', function() {
-    const precoVenda = parseFloat(this.value) || 0;
+// Atualizar opções de envio quando pagador do frete mudar
+document.getElementById('pagadorFrete').addEventListener('change', function() {
     const opcoesEnvio = document.getElementById('opcoesEnvio');
     const alertaFrete = document.getElementById('alertaFrete');
     
-    if (precoVenda >= 79) {
+    if (this.value === 'vendedor') {
         opcoesEnvio.style.display = 'block';
-        alertaFrete.style.display = 'none';
-    } else if (precoVenda > 0) {
-        opcoesEnvio.style.display = 'none';
-        alertaFrete.style.display = 'block';
+        const precoVenda = parseFloat(document.getElementById('precoVenda').value) || 0;
+        alertaFrete.style.display = precoVenda < 79 ? 'block' : 'none';
     } else {
         opcoesEnvio.style.display = 'none';
         alertaFrete.style.display = 'none';
@@ -76,6 +98,10 @@ document.getElementById('mlCalculator').addEventListener('submit', function(e) {
     const precoCusto = parseFloat(document.getElementById('precoCusto').value) || 0;
     const custosOp = parseFloat(document.getElementById('custosOp').value) || 0;
     const comissaoML = parseFloat(document.getElementById('comissaoML').value) || 13;
+    const regiaoEnvio = document.getElementById('regiaoEnvio').value;
+    const pesoProduto = document.getElementById('pesoProduto').value;
+    const reputacao = document.getElementById('reputacao').value;
+    const tipoEnvio = document.getElementById('tipoEnvio').value;
     const pagadorFrete = document.getElementById('pagadorFrete').value;
 
     // Validar preço mínimo
@@ -92,39 +118,43 @@ document.getElementById('mlCalculator').addEventListener('submit', function(e) {
         else custoFixo = 6.75;
     }
 
-    // Calcular custo de envio
-    let custoEnvio = 0;
-    let custoFreteExibicao = 0;
-    
-    if (precoVenda >= 79) {
-        const reputacao = document.getElementById('reputacao').value;
-        const regiaoEnvio = document.getElementById('regiaoEnvio').value;
-        const pesoProduto = document.getElementById('pesoProduto').value;
-        const tipoEnvio = document.getElementById('tipoEnvio').value;
-
-        if (tipoEnvio !== 'full') {
-            const precoBaseFrete = tabelaFretes[regiaoEnvio][pesoProduto];
-            const descontoReputacao = descontosReputacao[reputacao];
-            custoFreteExibicao = precoBaseFrete * (1 - descontoReputacao);
-        }
-    } else if (precoVenda > 0) {
-        // Frete básico para produtos abaixo de R$79
-        custoFreteExibicao = tabelaFretes.sul_sudeste['300g'];
-        // Vendedor sempre paga 50% do frete para produtos abaixo de R$79
-        if (pagadorFrete === 'vendedor') {
-            custoEnvio = custoFreteExibicao;
-        } else {
-            custoEnvio = custoFreteExibicao * 0.5; // Vendedor paga 50% mesmo quando cliente paga
-        }
-    }
-
-    // Se vendedor escolheu pagar o frete (para produtos >= R$79)
-    if (pagadorFrete === 'vendedor' && precoVenda >= 79) {
-        custoEnvio = custoFreteExibicao;
-    }
-
     // Calcular comissão ML
     const valorComissao = (precoVenda * comissaoML) / 100;
+
+    // Calcular custo de envio
+    let custoEnvio = 0;
+    if (pagadorFrete === 'vendedor') {
+        // Pegar valor base do frete
+        const valorBaseFrete = tabelaFrete[regiaoEnvio][pesoProduto];
+
+        // Aplicar desconto baseado na reputação
+        let descontoReputacao = 0;
+        if (precoVenda >= 79) {
+            switch(reputacao) {
+                case 'verde':
+                    descontoReputacao = 0.50; // 50% desconto
+                    break;
+                case 'amarela':
+                    descontoReputacao = 0.40; // 40% desconto
+                    break;
+                case 'vermelha':
+                    descontoReputacao = 0; // sem desconto
+                    break;
+            }
+        }
+
+        custoEnvio = valorBaseFrete * (1 - descontoReputacao);
+
+        // Se preço < R$79, vendedor paga 50% do frete
+        if (precoVenda < 79) {
+            custoEnvio = custoEnvio * 0.5;
+        }
+
+        // Ajuste para Full
+        if (tipoEnvio === 'full') {
+            custoEnvio = custoEnvio * 0.8; // 20% mais barato no Full
+        }
+    }
 
     // Calcular custos totais
     const custoTotal = valorComissao + custoFixo + precoCusto + custosOp + custoEnvio;
@@ -137,41 +167,29 @@ document.getElementById('mlCalculator').addEventListener('submit', function(e) {
     // Atualizar resultados
     document.getElementById('valorComissao').textContent = valorComissao.toFixed(2);
     document.getElementById('custoFixo').textContent = custoFixo.toFixed(2);
-    
-    // Exibir informação do frete
-    const custoEnvioElement = document.getElementById('custoEnvio');
-    if (pagadorFrete === 'cliente' && precoVenda >= 79) {
-        custoEnvioElement.textContent = `0.00 (Cliente paga R$ ${custoFreteExibicao.toFixed(2)})`;
-    } else if (precoVenda < 79) {
-        custoEnvioElement.textContent = `${custoEnvio.toFixed(2)} (50% do frete)`;
-    } else {
-        custoEnvioElement.textContent = custoEnvio.toFixed(2);
-    }
-
+    document.getElementById('custoEnvio').textContent = custoEnvio.toFixed(2);
     document.getElementById('custoTotal').textContent = custoTotal.toFixed(2);
     document.getElementById('receitaLiquida').textContent = receitaLiquida.toFixed(2);
     document.getElementById('lucro').textContent = lucro.toFixed(2);
     document.getElementById('margemLucro').textContent = margemLucro.toFixed(2);
+
+    // Debug
+    console.log({
+        valorBaseFrete: tabelaFrete[regiaoEnvio][pesoProduto],
+        descontoReputacao,
+        custoEnvio,
+        precoVenda,
+        custoTotal
+    });
 });
 
-// Inicializar tooltips
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl)
-});
-
-// Typed.js
-var typed = new Typed('#typed', {
-    strings: ['Calculadora Mercado Livre'],
-    typeSpeed: 100,
-    backSpeed: 50,
-    loop: false,
-    showCursor: true,
-    cursorChar: '|',
-    autoInsertCss: true,
-    onComplete: (self) => {
-        setTimeout(() => {
-            self.cursor.style.display = 'none';
-        }, 1500);
+// Atualizar alerta de frete quando preço de venda mudar
+document.getElementById('precoVenda').addEventListener('input', function() {
+    const pagadorFrete = document.getElementById('pagadorFrete').value;
+    const alertaFrete = document.getElementById('alertaFrete');
+    
+    if (pagadorFrete === 'vendedor') {
+        const precoVenda = parseFloat(this.value) || 0;
+        alertaFrete.style.display = precoVenda < 79 ? 'block' : 'none';
     }
-}); 
+});
