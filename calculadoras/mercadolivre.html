@@ -58,6 +58,10 @@
             padding: 10px;
         }
 
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
         .form-control:focus {
             background: rgba(255, 255, 255, 0.15);
             border-color: #149ddd;
@@ -69,6 +73,16 @@
             background-color: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(20, 157, 221, 0.3);
             color: #fff;
+        }
+
+        .form-select option {
+            background-color: #040b14;
+            color: #fff;
+        }
+
+        .form-label {
+            color: #fff;
+            margin-bottom: 8px;
         }
 
         .btn-primary {
@@ -273,7 +287,7 @@
                             <div class="col-12">
                                 <div class="alert alert-warning" id="alertaFrete" role="alert">
                                     <i class="bi bi-exclamation-triangle-fill"></i>
-                                    Para produtos abaixo de R$ 79, o vendedor paga 50% do frete.
+                                    Para produtos abaixo de R$ 79, o vendedor paga R$6.75 do frete.
                                 </div>
                             </div>
 
