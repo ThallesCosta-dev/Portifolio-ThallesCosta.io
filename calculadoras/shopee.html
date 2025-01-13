@@ -178,6 +178,11 @@
                         Calculadora Reversa
                     </button>
                 </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="calc-custo-tab" data-bs-toggle="tab" data-bs-target="#calc-custo" type="button" role="tab">
+                        Calculadora de Custo
+                    </button>
+                </li>
             </ul>
 
             <div class="tab-content" id="calculatorTabsContent">
@@ -361,6 +366,83 @@
                                 <p>Taxa por Item: R$ <span id="taxaItemReverso" class="result-value">4.00</span></p>
                                 <p>Lucro Estimado: R$ <span id="lucroEstimado" class="result-value">0.00</span></p>
                                 <p>Imposto Estimado: R$ <span id="impostoEstimado" class="result-value">0.00</span></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Calculadora de Custo -->
+                <div class="tab-pane fade" id="calc-custo" role="tabpanel">
+                    <form id="shopeeCustoCalculator" class="needs-validation" novalidate>
+                        <div class="row g-3">
+                            <!-- Preço de Venda -->
+                            <div class="col-md-6">
+                                <label for="precoVendaCusto" class="form-label">
+                                    Preço de Venda (R$)
+                                    <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                       title="Preço que você irá anunciar o produto"></i>
+                                </label>
+                                <input type="number" class="form-control" id="precoVendaCusto" step="0.01" min="0" required>
+                            </div>
+
+                            <!-- Margem Desejada -->
+                            <div class="col-md-6">
+                                <label for="margemDesejadaCusto" class="form-label">
+                                    Margem de Lucro Desejada (%)
+                                    <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                       title="Qual margem de lucro você deseja obter"></i>
+                                </label>
+                                <input type="number" class="form-control" id="margemDesejadaCusto" step="0.1" min="0" required>
+                            </div>
+
+                            <!-- Custos Operacionais -->
+                            <div class="col-md-6">
+                                <label for="custosOpCusto" class="form-label">
+                                    Custos Operacionais (R$)
+                                    <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                       title="Custos extras como embalagem, etiquetas, etc"></i>
+                                </label>
+                                <input type="number" class="form-control" id="custosOpCusto" step="0.01" min="0" value="0">
+                            </div>
+
+                            <!-- Imposto -->
+                            <div class="col-md-6">
+                                <label for="impostoPercentCusto" class="form-label">
+                                    Imposto (%)
+                                    <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                       title="Percentual de impostos sobre a venda (ex: MEI 6%, Simples Nacional, etc)"></i>
+                                </label>
+                                <input type="number" class="form-control" id="impostoPercentCusto" step="0.1" min="0" max="100" value="0">
+                            </div>
+
+                            <!-- Programa de Frete -->
+                            <div class="col-md-6">
+                                <label for="programaFreteCusto" class="form-label">
+                                    Programa de Frete
+                                    <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                       title="Escolha se participa do programa de frete grátis"></i>
+                                </label>
+                                <select class="form-select" id="programaFreteCusto" required>
+                                    <option value="sem_programa">Sem Programa de Frete Grátis (14%)</option>
+                                    <option value="com_programa">Com Programa de Frete Grátis (14% + 6%)</option>
+                                </select>
+                            </div>
+
+                            <!-- Botão Calcular -->
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary w-100">Calcular Preço de Custo Ideal</button>
+                            </div>
+                        </div>
+
+                        <!-- Resultados -->
+                        <div class="mt-4">
+                            <h3>Resultados:</h3>
+                            <div class="result-box">
+                                <p>Preço de Custo Máximo: R$ <span id="precoCustoMaximo" class="result-value">0.00</span></p>
+                                <p>Comissão Estimada: R$ <span id="comissaoCusto" class="result-value">0.00</span></p>
+                                <p>Taxa por Item: R$ <span id="taxaItemCusto" class="result-value">4.00</span></p>
+                                <p>Lucro Projetado: R$ <span id="lucroProjetado" class="result-value">0.00</span></p>
+                                <p>Imposto Estimado: R$ <span id="impostoEstimadoCusto" class="result-value">0.00</span></p>
                             </div>
                         </div>
                     </form>

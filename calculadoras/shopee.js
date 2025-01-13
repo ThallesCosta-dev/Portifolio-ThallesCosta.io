@@ -94,4 +94,79 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         calcularReverso();
     });
+
+    // Adicionar listener para o formulário da calculadora de custo
+    document.getElementById('shopeeCustoCalculator')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        calcularCustoIdeal();
+    });
+
+    function calcularCustoIdeal() {
+        // Obter valores do formulário
+        const precoVenda = parseFloat(document.getElementById('precoVendaCusto').value);
+        const margemDesejada = parseFloat(document.getElementById('margemDesejadaCusto').value) / 100;
+        const custosOperacionais = parseFloat(document.getElementById('custosOpCusto').value) || 0;
+        const impostoPercent = parseFloat(document.getElementById('impostoPercentCusto').value) || 0;
+        const programaFrete = document.getElementById('programaFreteCusto').value;
+
+        // Calcular comissão Shopee
+        const taxaComissao = programaFrete === 'com_programa' ? 0.20 : 0.14; // 14% ou 20% (14% + 6%)
+        const comissao = precoVenda * taxaComissao;
+
+        // Calcular imposto
+        const imposto = (precoVenda * (impostoPercent / 100));
+
+        // Calcular taxa fixa por item
+        const taxaItem = 4.00;
+
+        // Calcular receita líquida
+        const receitaLiquida = precoVenda - comissao - taxaItem - imposto;
+
+        // Calcular custos totais (custos operacionais)
+        const custosTotais = custosOperacionais;
+
+        // Calcular lucro desejado baseado na margem
+        const lucroDesejado = precoVenda * margemDesejada;
+
+        // Calcular preço de custo máximo
+        // Preço de Custo = Receita Líquida - Lucro Desejado - Custos Operacionais
+        const precoCustoMaximo = receitaLiquida - lucroDesejado - custosTotais;
+
+        // Atualizar resultados na interface
+        document.getElementById('precoCustoMaximo').textContent = precoCustoMaximo.toFixed(2);
+        document.getElementById('comissaoCusto').textContent = comissao.toFixed(2);
+        document.getElementById('taxaItemCusto').textContent = taxaItem.toFixed(2);
+        document.getElementById('lucroProjetado').textContent = lucroDesejado.toFixed(2);
+        document.getElementById('impostoEstimadoCusto').textContent = imposto.toFixed(2);
+
+        // Adicionar classes de estilo baseadas no resultado
+        const precoCustoElement = document.getElementById('precoCustoMaximo');
+        if (precoCustoMaximo <= 0) {
+            precoCustoElement.classList.add('text-danger');
+            precoCustoElement.classList.remove('text-success');
+        } else {
+            precoCustoElement.classList.add('text-success');
+            precoCustoElement.classList.remove('text-danger');
+        }
+    }
+
+    // Adicionar validação para todos os campos numéricos da calculadora de custo
+    document.querySelectorAll('#shopeeCustoCalculator input[type="number"]').forEach(input => {
+        input.addEventListener('input', function() {
+            if (this.value < 0) {
+                this.value = 0;
+            }
+        });
+    });
+
+    // Atualizar tooltips para a nova calculadora
+    document.addEventListener('DOMContentLoaded', function() {
+        // ... existing tooltip initialization ...
+        
+        // Adicionar tooltips para os novos elementos
+        const newTooltips = document.querySelectorAll('#calc-custo [data-bs-toggle="tooltip"]');
+        newTooltips.forEach(tooltip => {
+            new bootstrap.Tooltip(tooltip);
+        });
+    });
 }); 
