@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora SHEIN</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000000;
+            color: #fff;
+            font-family: "Open Sans", sans-serif;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .calculator-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 30px;
+            color: #fff;
+        }
+
+        .nav-tabs {
+            border: none;
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .nav-link {
+            background: rgba(20, 157, 221, 0.1);
+            color: #fff;
+            border: 1px solid rgba(20, 157, 221, 0.3);
+            border-radius: 8px;
+            padding: 10px 20px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .nav-link.active {
+            background: #ff0066 !important;
+            color: #fff !important;
+            border-color: #ff0066 !important;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(20, 157, 221, 0.3);
+            color: #fff;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #149ddd;
+            color: #fff;
+            box-shadow: 0 0 0 0.2rem rgba(20, 157, 221, 0.25);
+        }
+
+        .form-select {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(20, 157, 221, 0.3);
+            color: #fff;
+        }
+
+        .form-select option {
+            background-color: #040b14;
+            color: #fff;
+        }
+
+        .form-label {
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .btn-primary {
+            background: #ff0066;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #cc0052;
+            transform: translateY(-2px);
+        }
+
+        .result-box {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .result-value {
+            color: #ff0066;
+            font-weight: 700;
+        }
+
+        .back-button {
+            color: #149ddd;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .tooltip {
+            color: #149ddd;
+        }
+
+        #alertaFrete {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            color: #ffc107;
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .calculator-header {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .shopee-logo {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 120px;
+            height: auto;
+        }
+
+        /* Ajuste para telas menores */
+        @media (max-width: 768px) {
+            .shopee-logo {
+                width: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-button">
+            <i class="bi bi-arrow-left"></i> Voltar para Métricas
+        </a>
+
+        <div class="calculator-card">
+            <div class="calculator-header">
+                <h1 class="text-center mb-4"><span id="typed"></span></h1>
+                <img src="assets/img/shein-logo.png" alt="Logo SHEIN" class="shopee-logo">
+            </div>
+            
+            <ul class="nav nav-tabs mb-4" id="calculatorTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="calc-normal-tab" data-bs-toggle="tab" data-bs-target="#calc-normal" type="button" role="tab">
+                        Calculadora Normal
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="calc-reversa-tab" data-bs-toggle="tab" data-bs-target="#calc-reversa" type="button" role="tab">
+                        Calculadora Reversa
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="calculatorTabsContent">
+                <!-- Calculadora Normal -->
+                <div class="tab-pane fade show active" id="calc-normal" role="tabpanel">
+                    <form id="sheinCalculator" class="needs-validation" novalidate>
+                        <div class="row g-3">
+                            <!-- Preço de Venda -->
+                            <div class="col-md-6">
+                                <label for="precoVenda" class="form-label">
+                                    Preço de Venda (R$)
+                                    <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                       title="Preço que você irá anunciar o produto"></i>
+                                </label>
+                                <input type="number" class="form-control" id="precoVenda" step="0.01" min="0" required>
+                            </div>
+
+                            <!-- Preço de Custo -->
+                            <div class="col-md-6">
+                                <label for="precoCusto" class="form-label">
+                                    Preço de Custo (R$)
+                                    <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                       title="Quanto você pagou pelo produto"></i>
+                                </label>
+                                <input type="number" class="form-control" id="precoCusto" step="0.01" min="0" required>
+                            </div>
+
+                            <!-- Custos Operacionais -->
+                            <div class="col-md-6">
+                                <label for="custosOp" class="form-label">
+                                    Custos Operacionais (R$)
+                                    <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                       title="Custos extras como embalagem, etiquetas, etc"></i>
+                                </label>
+                                <input type="number" class="form-control" id="custosOp" step="0.01" min="0" value="0">
+                            </div>
+
+                            <!-- Imposto -->
+                            <div class="col-md-6">
+                                <label for="impostoPercent" class="form-label">
+                                    Imposto (%)
+                                    <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                       title="Percentual de impostos sobre a venda (ex: MEI 6%, Simples Nacional, etc)"></i>
+                                </label>
+                                <input type="number" class="form-control" id="impostoPercent" step="0.1" min="0" max="100" value="0">
+                            </div>
+
+                            <!-- Período -->
+                            <div class="col-md-6">
+                                <label for="periodo" class="form-label">
+                                    Período
+                                    <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                       title="Selecione o período da venda"></i>
+                                </label>
+                                <select class="form-select" id="periodo" required>
+                                    <option value="novo">Primeiros 30 dias (0%)</option>
+                                    <option value="regular">Após 30 dias (16%)</option>
+                                </select>
+                            </div>
+
+                            <!-- Botão Calcular -->
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary w-100">Calcular</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Resultados -->
+                    <div class="mt-4">
+                        <h3>Resultados:</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="result-box">
+                                    <p>Comissão SHEIN: R$ <span id="valorComissao" class="result-value">0.00</span></p>
+                                    <p>Custos Totais: R$ <span id="custoTotal" class="result-value">0.00</span></p>
+                                    <p>Imposto: R$ <span id="valorImposto" class="result-value">0.00</span></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="result-box">
+                                    <p>Receita Líquida: R$ <span id="receitaLiquida" class="result-value">0.00</span></p>
+                                    <p>Lucro: R$ <span id="lucro" class="result-value">0.00</span></p>
+                                    <p>Margem de Lucro: <span id="margemLucro" class="result-value">0.00</span>%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculadora Reversa -->
+                <div class="tab-pane fade" id="calc-reversa" role="tabpanel">
+                    <form id="sheinCalculatorReverso" class="needs-validation" novalidate>
+                        <div class="row g-3">
+                            <!-- Preço de Custo -->
+                            <div class="col-md-6">
+                                <label for="precoCustoReverso" class="form-label">
+                                    Preço de Custo (R$)
+                                    <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                       title="Quanto você pagou pelo produto"></i>
+                                </label>
+                                <input type="number" class="form-control" id="precoCustoReverso" step="0.01" min="0" required>
+                            </div>
+
+                            <!-- Margem Desejada -->
+                            <div class="col-md-6">
+                                <label for="margemDesejada" class="form-label">
+                                    Margem de Lucro Desejada (%)
+                                    <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                       title="Qual margem de lucro você deseja obter"></i>
+                                </label>
+                                <input type="number" class="form-control" id="margemDesejada" step="0.1" min="0" required>
+                            </div>
+
+                            <!-- Custos Operacionais -->
+                            <div class="col-md-6">
+                                <label for="custosOpReverso" class="form-label">
+                                    Custos Operacionais (R$)
+                                    <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                       title="Custos extras como embalagem, etiquetas, etc"></i>
+                                </label>
+                                <input type="number" class="form-control" id="custosOpReverso" step="0.01" min="0" value="0">
+                            </div>
+
+                            <!-- Imposto -->
+                            <div class="col-md-6">
+                                <label for="impostoPercentReverso" class="form-label">
+                                    Imposto (%)
+                                    <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                       title="Percentual de impostos sobre a venda (ex: MEI 6%, Simples Nacional, etc)"></i>
+                                </label>
+                                <input type="number" class="form-control" id="impostoPercentReverso" step="0.1" min="0" max="100" value="0">
+                            </div>
+
+                            <!-- Programa de Frete -->
+                            <div class="col-md-6">
+                                <label for="programaFreteReverso" class="form-label">
+                                    Programa de Frete
+                                    <i class="bi bi-question-circle" data-bs-toggle="tooltip" 
+                                       title="Escolha se participa do programa de frete grátis"></i>
+                                </label>
+                                <select class="form-select" id="programaFreteReverso" required>
+                                    <option value="sem_programa">Sem Programa de Frete Grátis (14%)</option>
+                                    <option value="com_programa">Com Programa de Frete Grátis (14% + 6%)</option>
+                                </select>
+                            </div>
+
+                            <!-- Botão Calcular -->
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary w-100">Calcular Preço de Venda</button>
+                            </div>
+                        </div>
+
+                        <!-- Resultados Reversos -->
+                        <div class="mt-4">
+                            <h3>Resultados:</h3>
+                            <div class="result-box">
+                                <p>Preço de Venda Sugerido: R$ <span id="precoVendaSugerido" class="result-value">0.00</span></p>
+                                <p>Comissão Estimada: R$ <span id="comissaoEstimada" class="result-value">0.00</span></p>
+                                <p>Taxa por Item: R$ <span id="taxaItemReverso" class="result-value">4.00</span></p>
+                                <p>Lucro Estimado: R$ <span id="lucroEstimado" class="result-value">0.00</span></p>
+                                <p>Imposto Estimado: R$ <span id="impostoEstimado" class="result-value">0.00</span></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="copyright text-center">
+                    <p>© <span>Copyright</span> <strong class="px-1">Thalles Costa 2025</strong> <span>Todos os direitos reservados</span></p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="shein.js"></script>
+</body>
+</html>
