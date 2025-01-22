@@ -1212,7 +1212,7 @@ section,
   border-left: 3px solid color-mix(in srgb, var(--default-color), transparent 70%);
   margin: 20px 0;
   color: color-mix(in srgb, var(--default-color), transparent 20%);
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
 .service-details .services-list a.active {
@@ -1225,32 +1225,64 @@ section,
   border-color: var(--accent-color);
 }
 
+.service-details .service-summary,
+.service-details .service-content {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+  position: absolute;
+  width: 100%;
+  transform: translateY(20px);
+}
+
+.service-details .service-summary.active,
+.service-details .service-content.active {
+  max-height: 2000px; /* valor alto o suficiente para todo o conteúdo */
+  opacity: 1;
+  position: relative;
+  transform: translateY(0);
+}
+
+.service-details .services-content-wrapper {
+  position: relative;
+}
+
 .service-details .services-img {
   margin-bottom: 20px;
+  border-radius: 8px;
+  width: 100%;
+  height: auto;
 }
 
 .service-details h3 {
   font-size: 26px;
   font-weight: 700;
+  color: var(--heading-color);
+  margin-bottom: 20px;
 }
 
 .service-details h4 {
   font-size: 20px;
   font-weight: 700;
+  color: var(--heading-color);
+  margin-bottom: 15px;
 }
 
 .service-details p {
   font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 20px;
 }
 
 .service-details ul {
   list-style: none;
   padding: 0;
-  font-size: 15px;
+  margin: 0 0 20px 0;
 }
 
 .service-details ul li {
-  padding: 5px 0;
+  padding: 10px 0;
   display: flex;
   align-items: center;
 }
@@ -1261,14 +1293,11 @@ section,
   color: var(--accent-color);
 }
 
-/*--------------------------------------------------------------
-# Starter Section Section
---------------------------------------------------------------*/
-.starter-section {
-  /* Add your styles here */
+.service-details ul span {
+  color: var(--default-color);
 }
 
-/* Estilo para imagens quadradas com bordas arredondadas */
+
 .rounded-square {
   width: auto; /* Ajusta a largura para 100% do contêiner */
   height: auto; /* Mantém a proporção da imagem */

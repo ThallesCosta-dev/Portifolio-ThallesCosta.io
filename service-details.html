@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
   <meta charset="utf-8">
@@ -42,48 +42,28 @@
     <i class="header-toggle d-xl-none bi bi-list"></i>
 
     <div class="profile-img">
-      <img src="assets/img/my-profile-img.jpg" alt="" class="img-fluid rounded-circle">
+      <img src="assets/img/my-profile-img.jpg" class="img-fluid rounded-square">
     </div>
 
     <a href="index.html" class="logo d-flex align-items-center justify-content-center">
-      <!-- Uncomment the line below if you also wish to use an image logo -->
-      <!-- <img src="assets/img/logo.png" alt=""> -->
-      <h1 class="sitename">Alex Smith</h1>
+      <h1 class="sitename">Thalles Costa</h1>
     </a>
 
     <div class="social-links text-center">
-      <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
-      <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-      <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-      <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
-      <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+      <a href="https://x.com/ThallesCostaDev" class="twitter"><i class="bi bi-twitter-x"></i></a>
+      <a href="https://www.instagram.com/thalles_costa5/" class="instagram"><i class="bi bi-instagram"></i></a>
+      <a href="https://github.com/ThallesCosta-dev" class="github"><i class="bi bi-github"></i></a>
+      <a href="https://www.linkedin.com/in/thallesfcosta/" class="linkedin"><i class="bi bi-linkedin"></i></a>
     </div>
 
     <nav id="navmenu" class="navmenu">
       <ul>
-        <li><a href="#hero"><i class="bi bi-house navicon"></i>Home</a></li>
-        <li><a href="#about"><i class="bi bi-person navicon"></i> About</a></li>
-        <li><a href="#resume"><i class="bi bi-file-earmark-text navicon"></i> Resume</a></li>
-        <li><a href="#portfolio"><i class="bi bi-images navicon"></i> Portfolio</a></li>
-        <li><a href="#services"><i class="bi bi-hdd-stack navicon"></i> Services</a></li>
-        <li class="dropdown"><a href="#"><i class="bi bi-menu-button navicon"></i> <span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-          <ul>
-            <li><a href="#">Dropdown 1</a></li>
-            <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-              <ul>
-                <li><a href="#">Deep Dropdown 1</a></li>
-                <li><a href="#">Deep Dropdown 2</a></li>
-                <li><a href="#">Deep Dropdown 3</a></li>
-                <li><a href="#">Deep Dropdown 4</a></li>
-                <li><a href="#">Deep Dropdown 5</a></li>
-              </ul>
-            </li>
-            <li><a href="#">Dropdown 2</a></li>
-            <li><a href="#">Dropdown 3</a></li>
-            <li><a href="#">Dropdown 4</a></li>
-          </ul>
-        </li>
-        <li><a href="#contact"><i class="bi bi-envelope navicon"></i> Contact</a></li>
+        <li><a href="index.html#hero"><i class="bi bi-house navicon"></i>Página Inicial</a></li>
+        <li><a href="index.html#about"><i class="bi bi-person navicon"></i> Sobre Mim</a></li>
+        <li><a href="index.html#resume"><i class="bi bi-file-earmark-text navicon"></i> Curriculo</a></li>
+        <li><a href="index.html#portfolio"><i class="bi bi-images navicon"></i> Portfolio</a></li>
+        <li><a href="index.html#services"><i class="bi bi-hdd-stack navicon"></i> Serviços</a></li>
+        <li><a href="index.html#contact"><i class="bi bi-envelope navicon"></i> Fale Comigo</a></li>
       </ul>
     </nav>
 
@@ -94,11 +74,11 @@
     <!-- Page Title -->
     <div class="page-title dark-background">
       <div class="container d-lg-flex justify-content-between align-items-center">
-        <h1 class="mb-2 mb-lg-0">Service Details</h1>
+        <h1 class="mb-2 mb-lg-0">Detalhes do Serviço</h1>
         <nav class="breadcrumbs">
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li class="current">Service Details</li>
+            <li class="current">Detalhes do Serviço</li>
           </ol>
         </nav>
       </div>
@@ -113,34 +93,102 @@
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
             <div class="services-list">
-              <a href="#" class="active">Web Design</a>
-              <a href="#">Software Development</a>
-              <a href="#">Product Management</a>
-              <a href="#">Graphic Design</a>
-              <a href="#">Marketing</a>
+                <a href="#" data-service="ecommerce" class="active">Gestão de E-commerce</a>
+                <a href="#" data-service="marketing">Marketing Digital</a>
+                <a href="#" data-service="development">Desenvolvimento Web</a>
+                <a href="#" data-service="consulting">Consultoria</a>
+                <a href="#" data-service="data">Análise de Dados</a>
             </div>
 
-            <h4>Enim qui eos rerum in delectus</h4>
-            <p>Nam voluptatem quasi numquam quas fugiat ex temporibus quo est. Quia aut quam quod facere ut non occaecati ut aut. Nesciunt mollitia illum tempore corrupti sed eum reiciendis. Maxime modi rerum.</p>
+            <div id="service-summary-ecommerce" class="service-summary active">
+                <h4>Gestão de E-commerce</h4>
+                <p>Ofereço soluções completas para seu e-commerce, desde a implementação até a otimização de processos e análise de resultados.</p>
+            </div>
+
+            <div id="service-summary-marketing" class="service-summary">
+                <h4>Marketing Digital</h4>
+                <p>Desenvolvo estratégias personalizadas de marketing digital para aumentar sua presença online e gerar resultados mensuráveis.</p>
+            </div>
+
+            <div id="service-summary-development" class="service-summary">
+                <h4>Desenvolvimento Web</h4>
+                <p>Crio websites e aplicações web modernas, responsivas e otimizadas para resultados.</p>
+            </div>
+
+            <div id="service-summary-consulting" class="service-summary">
+                <h4>Consultoria</h4>
+                <p>Forneço consultoria estratégica para negócios digitais, focada em crescimento e otimização de processos.</p>
+            </div>
+
+            <div id="service-summary-data" class="service-summary">
+                <h4>Análise de Dados</h4>
+                <p>Realizo análise profunda de dados para tomada de decisões estratégicas e otimização de resultados.</p>
+            </div>
           </div>
 
           <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
-            <img src="assets/img/services.jpg" alt="" class="img-fluid services-img">
-            <h3>Temporibus et in vero dicta aut eius lidero plastis trand lined voluptas dolorem ut voluptas</h3>
-            <p>
-              Blanditiis voluptate odit ex error ea sed officiis deserunt. Cupiditate non consequatur et doloremque consequuntur. Accusantium labore reprehenderit error temporibus saepe perferendis fuga doloribus vero. Qui omnis quo sit. Dolorem architecto eum et quos deleniti officia qui.
-            </p>
-            <ul>
-              <li><i class="bi bi-check-circle"></i> <span>Aut eum totam accusantium voluptatem.</span></li>
-              <li><i class="bi bi-check-circle"></i> <span>Assumenda et porro nisi nihil nesciunt voluptatibus.</span></li>
-              <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea</span></li>
-            </ul>
-            <p>
-              Est reprehenderit voluptatem necessitatibus asperiores neque sed ea illo. Deleniti quam sequi optio iste veniam repellat odit. Aut pariatur itaque nesciunt fuga.
-            </p>
-            <p>
-              Sunt rem odit accusantium omnis perspiciatis officia. Laboriosam aut consequuntur recusandae mollitia doloremque est architecto cupiditate ullam. Quia est ut occaecati fuga. Distinctio ex repellendus eveniet velit sint quia sapiente cumque. Et ipsa perferendis ut nihil. Laboriosam vel voluptates tenetur nostrum. Eaque iusto cupiditate et totam et quia dolorum in. Sunt molestiae ipsum at consequatur vero. Architecto ut pariatur autem ad non cumque nesciunt qui maxime. Sunt eum quia impedit dolore alias explicabo ea.
-            </p>
+            <div id="service-content-ecommerce" class="service-content active">
+                <img src="assets/img/services-ecommerce.jpg" alt="" class="img-fluid services-img">
+                <h3>Gestão Estratégica de E-commerce</h3>
+                <p>Minha abordagem integrada combina estratégias de e-commerce com marketing digital para maximizar seus resultados online. Trabalho com:</p>
+                <ul>
+                    <li><i class="bi bi-check-circle"></i> <span>Implementação e otimização de lojas virtuais</span></li>
+                    <li><i class="bi bi-check-circle"></i> <span>Gestão de marketplaces e canais de venda</span></li>
+                    <li><i class="bi bi-check-circle"></i> <span>Estratégias de marketing digital e análise de dados</span></li>
+                </ul>
+            </div>
+
+            <!-- Conteúdo Marketing Digital -->
+            <div id="service-content-marketing" class="service-content">
+                <img src="assets/img/services-marketing.jpg" alt="" class="img-fluid services-img">
+                <h3>Marketing Digital Orientado a Resultados</h3>
+                <p>Desenvolvo estratégias completas de marketing digital para sua empresa crescer online:</p>
+                <ul>
+                    <li><i class="bi bi-check-circle"></i> <span>SEO e Marketing de Conteúdo</span></li>
+                    <li><i class="bi bi-check-circle"></i> <span>Gestão de Mídias Sociais</span></li>
+                    <li><i class="bi bi-check-circle"></i> <span>Campanhas de Marketing Digital</span></li>
+                    <li><i class="bi bi-check-circle"></i> <span>Análise e Otimização de Resultados</span></li>
+                </ul>
+            </div>
+
+            <!-- Conteúdo Desenvolvimento Web -->
+            <div id="service-content-development" class="service-content">
+                <img src="assets/img/services-development.jpg" alt="" class="img-fluid services-img">
+                <h3>Desenvolvimento Web Profissional</h3>
+                <p>Crio soluções web personalizadas e eficientes para seu negócio:</p>
+                <ul>
+                    <li><i class="bi bi-check-circle"></i> <span>Websites Responsivos e Modernos</span></li>
+                    <li><i class="bi bi-check-circle"></i> <span>Aplicações Web Personalizadas</span></li>
+                    <li><i class="bi bi-check-circle"></i> <span>Otimização de Performance</span></li>
+                    <li><i class="bi bi-check-circle"></i> <span>Integração com APIs e Sistemas</span></li>
+                </ul>
+            </div>
+
+            <!-- Conteúdo Consultoria -->
+            <div id="service-content-consulting" class="service-content">
+                <img src="assets/img/services-consulting.jpg" alt="" class="img-fluid services-img">
+                <h3>Consultoria Estratégica Digital</h3>
+                <p>Ofereço consultoria especializada para impulsionar seu negócio digital:</p>
+                <ul>
+                    <li><i class="bi bi-check-circle"></i> <span>Planejamento Estratégico Digital</span></li>
+                    <li><i class="bi bi-check-circle"></i> <span>Otimização de Processos</span></li>
+                    <li><i class="bi bi-check-circle"></i> <span>Análise de Mercado e Concorrência</span></li>
+                    <li><i class="bi bi-check-circle"></i> <span>Transformação Digital</span></li>
+                </ul>
+            </div>
+
+            <!-- Conteúdo Análise de Dados -->
+            <div id="service-content-data" class="service-content">
+                <img src="assets/img/services-data.jpg" alt="" class="img-fluid services-img">
+                <h3>Análise de Dados e Business Intelligence</h3>
+                <p>Transformo dados em insights acionáveis para seu negócio:</p>
+                <ul>
+                    <li><i class="bi bi-check-circle"></i> <span>Análise de Dados de Marketing</span></li>
+                    <li><i class="bi bi-check-circle"></i> <span>Dashboards Personalizados</span></li>
+                    <li><i class="bi bi-check-circle"></i> <span>KPIs e Métricas de Performance</span></li>
+                    <li><i class="bi bi-check-circle"></i> <span>Relatórios Estratégicos</span></li>
+                </ul>
+            </div>
           </div>
 
         </div>
@@ -154,18 +202,10 @@
   <footer id="footer" class="footer position-relative light-background">
 
     <div class="container">
-      <div class="copyright text-center ">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">iPortfolio</strong> <span>All Rights Reserved</span></p>
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Distributed by <a href="https://themewagon.com">ThemeWagon</a>
+      <div class="copyright text-center">
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">Thalles Costa 2025</strong> <span>Todos os direitos reservados</span></p>
       </div>
     </div>
-
   </footer>
 
   <!-- Scroll Top -->
@@ -188,6 +228,40 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const serviceLinks = document.querySelectorAll('.services-list a');
+      
+      serviceLinks.forEach(link => {
+          link.addEventListener('click', function(e) {
+              e.preventDefault();
+              
+              // Remove active class from all links
+              serviceLinks.forEach(l => l.classList.remove('active'));
+              
+              // Add active class to clicked link
+              this.classList.add('active');
+              
+              // Get service type from data attribute
+              const serviceType = this.getAttribute('data-service');
+              
+              // Hide all summaries and contents with transition
+              document.querySelectorAll('.service-summary, .service-content').forEach(el => {
+                  if (el.classList.contains('active')) {
+                      el.classList.remove('active');
+                  }
+              });
+              
+              // Show selected summary and content
+              setTimeout(() => {
+                  document.getElementById(`service-summary-${serviceType}`).classList.add('active');
+                  document.getElementById(`service-content-${serviceType}`).classList.add('active');
+              }, 50);
+          });
+      });
+  });
+  </script>
 
 </body>
 
