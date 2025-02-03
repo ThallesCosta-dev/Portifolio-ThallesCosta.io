@@ -1299,12 +1299,51 @@ section,
 
 
 .rounded-square {
-  width: auto; /* Ajusta a largura para 100% do contêiner */
-  height: auto; /* Mantém a proporção da imagem */
-  border-radius: 10px; /* Bordas levemente arredondadas */
-  object-fit: cover; /* Cobre o contêiner sem distorcer a imagem */
+  width: auto;
+  height: auto;
+  border-radius: 10px; 
+  object-fit: cover;
 }
 
 .text-center {
-  text-align: center; /* Centraliza o texto */
+  text-align: center;
+}
+
+.language-selector {
+    margin: 15px 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.language-selector .language-flag {
+    width: 40px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    border-radius: 3px;
+    overflow: hidden;
+    padding: 0;
+    background: var(--surface-color);
+}
+
+.language-selector .language-flag:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+}
+
+.language-selector .language-flag.active {
+    opacity: 1;
+    box-shadow: 0 0 0 2px var(--accent-color);
+}
+
+.language-selector .language-flag img {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
 }

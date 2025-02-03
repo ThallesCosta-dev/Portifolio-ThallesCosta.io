@@ -56,14 +56,26 @@
       <a href="https://www.linkedin.com/in/thallesfcosta/" class="linkedin"><i class="bi bi-linkedin"></i></a>
     </div>
 
+    <div class="language-selector text-center">
+      <a href="#" class="language-flag active" data-lang="pt-BR" title="Português">
+        <img src="assets/img/br.svg" alt="Português">
+      </a>
+      <a href="#" class="language-flag" data-lang="en-US" title="English">
+        <img src="assets/img/us.svg" alt="English">
+      </a>
+      <a href="#" class="language-flag" data-lang="es-ES" title="Español">
+        <img src="assets/img/es.svg" alt="Español">
+      </a>
+    </div>
+
     <nav id="navmenu" class="navmenu">
       <ul>
-        <li><a href="index.html#hero"><i class="bi bi-house navicon"></i>Página Inicial</a></li>
-        <li><a href="index.html#about"><i class="bi bi-person navicon"></i> Sobre Mim</a></li>
-        <li><a href="index.html#resume"><i class="bi bi-file-earmark-text navicon"></i> Curriculo</a></li>
-        <li><a href="index.html#portfolio"><i class="bi bi-images navicon"></i> Portfolio</a></li>
-        <li><a href="index.html#services"><i class="bi bi-hdd-stack navicon"></i> Serviços</a></li>
-        <li><a href="index.html#contact"><i class="bi bi-envelope navicon"></i> Fale Comigo</a></li>
+        <li><a href="index.html#hero"><i class="bi bi-house navicon"></i><span>Página Inicial</span></a></li>
+        <li><a href="index.html#about"><i class="bi bi-person navicon"></i><span>Sobre Mim</span></a></li>
+        <li><a href="index.html#resume"><i class="bi bi-file-earmark-text navicon"></i><span>Currículo</span></a></li>
+        <li><a href="index.html#portfolio"><i class="bi bi-images navicon"></i><span>Portfolio</span></a></li>
+        <li><a href="index.html#services"><i class="bi bi-hdd-stack navicon"></i><span>Serviços</span></a></li>
+        <li><a href="index.html#contact"><i class="bi bi-envelope navicon"></i><span>Fale Comigo</span></a></li>
       </ul>
     </nav>
 
@@ -120,6 +132,120 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script>
+  // Objeto com as traduções
+  const translations = {
+      'pt-BR': {
+          'page-title': 'Página Inicial',
+          'home': 'Página Inicial',
+          'about': 'Sobre Mim',
+          'resume': 'Currículo',
+          'portfolio': 'Portfólio',
+          'services': 'Serviços',
+          'contact': 'Fale Comigo',
+          'welcome-title': 'Bem-vindo ao Meu Portfólio',
+          'welcome-subtitle': 'Especialista em E-commerce, Marketing Digital e Desenvolvimento Web',
+          'welcome-text': 'Aqui você encontrará informações sobre meus serviços, projetos e experiência profissional. Navegue pelo menu lateral para conhecer mais sobre meu trabalho.',
+          'breadcrumb-home': 'Home',
+          'breadcrumb-current': 'Página Inicial',
+          'copyright': 'Todos os direitos reservados'
+      },
+      'en-US': {
+          'page-title': 'Home Page',
+          'home': 'Home',
+          'about': 'About Me',
+          'resume': 'Resume',
+          'portfolio': 'Portfolio',
+          'services': 'Services',
+          'contact': 'Contact',
+          'welcome-title': 'Welcome to My Portfolio',
+          'welcome-subtitle': 'Specialist in E-commerce, Digital Marketing and Web Development',
+          'welcome-text': 'Here you will find information about my services, projects and professional experience. Navigate through the side menu to learn more about my work.',
+          'breadcrumb-home': 'Home',
+          'breadcrumb-current': 'Home Page',
+          'copyright': 'All rights reserved'
+      },
+      'es-ES': {
+          'page-title': 'Página Inicial',
+          'home': 'Página Inicial',
+          'about': 'Sobre Mí',
+          'resume': 'Currículum',
+          'portfolio': 'Portafolio',
+          'services': 'Servicios',
+          'contact': 'Contacto',
+          'welcome-title': 'Bienvenido a Mi Portafolio',
+          'welcome-subtitle': 'Especialista en E-commerce, Marketing Digital y Desarrollo Web',
+          'welcome-text': 'Aquí encontrarás información sobre mis servicios, proyectos y experiencia profesional. Navega por el menú lateral para conocer más sobre mi trabajo.',
+          'breadcrumb-home': 'Inicio',
+          'breadcrumb-current': 'Página Inicial',
+          'copyright': 'Todos los derechos reservados'
+      }
+  };
+
+  // Atualizar o texto da página
+  function updatePageLanguage(lang) {
+      // Atualizar título da página
+      document.querySelector('.page-title h1').textContent = translations[lang]['page-title'];
+      
+      // Atualizar menu de navegação
+      document.querySelector('a[href="index.html#hero"] span').textContent = translations[lang]['home'];
+      document.querySelector('a[href="index.html#about"] span').textContent = translations[lang]['about'];
+      document.querySelector('a[href="index.html#resume"] span').textContent = translations[lang]['resume'];
+      document.querySelector('a[href="index.html#portfolio"] span').textContent = translations[lang]['portfolio'];
+      document.querySelector('a[href="index.html#services"] span').textContent = translations[lang]['services'];
+      document.querySelector('a[href="index.html#contact"] span').textContent = translations[lang]['contact'];
+      
+      // Atualizar breadcrumbs
+      document.querySelector('.breadcrumbs a').textContent = translations[lang]['breadcrumb-home'];
+      document.querySelector('.breadcrumbs .current').textContent = translations[lang]['breadcrumb-current'];
+      
+      // Atualizar conteúdo principal
+      document.querySelector('.section-title h2').textContent = translations[lang]['welcome-title'];
+      document.querySelector('.section-title p').textContent = translations[lang]['welcome-subtitle'];
+      document.querySelector('.starter-section .container p').textContent = translations[lang]['welcome-text'];
+      
+      // Atualizar copyright
+      document.querySelector('.copyright span:last-child').textContent = translations[lang]['copyright'];
+      
+      // Salvar preferência do usuário
+      localStorage.setItem('preferredLanguage', lang);
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+      const languageFlags = document.querySelectorAll('.language-flag');
+      
+      // Carregar idioma preferido do usuário
+      const savedLanguage = localStorage.getItem('preferredLanguage') || 'pt-BR';
+      updatePageLanguage(savedLanguage);
+      
+      // Atualizar flag ativa
+      languageFlags.forEach(flag => {
+          if (flag.getAttribute('data-lang') === savedLanguage) {
+              flag.classList.add('active');
+          } else {
+              flag.classList.remove('active');
+          }
+      });
+      
+      // Adicionar evento de clique nas bandeiras
+      languageFlags.forEach(flag => {
+          flag.addEventListener('click', function(e) {
+              e.preventDefault();
+              
+              // Remove active class from all flags
+              languageFlags.forEach(f => f.classList.remove('active'));
+              
+              // Add active class to clicked flag
+              this.classList.add('active');
+              
+              // Get selected language and update content
+              const lang = this.getAttribute('data-lang');
+              updatePageLanguage(lang);
+          });
+      });
+  });
+  </script>
 
 </body>
 
