@@ -237,23 +237,22 @@
           link.addEventListener('click', function(e) {
               e.preventDefault();
               
-              // Remove active class from all links
+
               serviceLinks.forEach(l => l.classList.remove('active'));
               
-              // Add active class to clicked link
+
               this.classList.add('active');
-              
-              // Get service type from data attribute
+
               const serviceType = this.getAttribute('data-service');
               
-              // Hide all summaries and contents with transition
+
               document.querySelectorAll('.service-summary, .service-content').forEach(el => {
                   if (el.classList.contains('active')) {
                       el.classList.remove('active');
                   }
               });
               
-              // Show selected summary and content
+
               setTimeout(() => {
                   document.getElementById(`service-summary-${serviceType}`).classList.add('active');
                   document.getElementById(`service-content-${serviceType}`).classList.add('active');
