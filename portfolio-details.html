@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
   <meta charset="utf-8">
@@ -49,14 +49,26 @@
       <a href="https://www.linkedin.com/in/thallesfcosta/" class="linkedin"><i class="bi bi-linkedin"></i></a>
     </div>
 
+    <div class="language-selector text-center">
+        <a href="#" class="language-flag active" data-lang="pt-BR" title="Português">
+            <img src="assets/img/br.svg" alt="Português">
+        </a>
+        <a href="#" class="language-flag" data-lang="en-US" title="English">
+            <img src="assets/img/us.svg" alt="English">
+        </a>
+        <a href="#" class="language-flag" data-lang="es-ES" title="Español">
+            <img src="assets/img/es.svg" alt="Español">
+        </a>
+    </div>
+
     <nav id="navmenu" class="navmenu">
       <ul>
-        <li><a href="index.html#hero"><i class="bi bi-house navicon"></i>Página Inicial</a></li>
-        <li><a href="index.html#about"><i class="bi bi-person navicon"></i> Sobre Mim</a></li>
-        <li><a href="index.html#resume"><i class="bi bi-file-earmark-text navicon"></i> Curriculo</a></li>
-        <li><a href="index.html#portfolio"><i class="bi bi-images navicon"></i> Portfolio</a></li>
-        <li><a href="index.html#services"><i class="bi bi-hdd-stack navicon"></i> Serviços</a></li>
-        <li><a href="index.html#contact"><i class="bi bi-envelope navicon"></i> Fale Comigo</a></li>
+        <li><a href="index.html#hero"><i class="bi bi-house navicon"></i><span data-translate="home">Página Inicial</span></a></li>
+        <li><a href="index.html#about"><i class="bi bi-person navicon"></i><span data-translate="about">Sobre Mim</span></a></li>
+        <li><a href="index.html#resume"><i class="bi bi-file-earmark-text navicon"></i><span data-translate="resume">Curriculo</span></a></li>
+        <li><a href="index.html#portfolio"><i class="bi bi-images navicon"></i><span data-translate="portfolio">Portfolio</span></a></li>
+        <li><a href="index.html#services"><i class="bi bi-hdd-stack navicon"></i><span data-translate="services">Serviços</span></a></li>
+        <li><a href="index.html#contact"><i class="bi bi-envelope navicon"></i><span data-translate="contact">Fale Comigo</span></a></li>
       </ul>
     </nav>
 
@@ -67,11 +79,11 @@
     <!-- Page Title -->
     <div class="page-title dark-background">
       <div class="container d-lg-flex justify-content-between align-items-center">
-        <h1 class="mb-2 mb-lg-0">Calculadora de Métricas Digitais</h1>
+        <h1 class="mb-2 mb-lg-0" data-translate="calculator-title">Calculadora de Métricas Digitais</h1>
         <nav class="breadcrumbs">
           <ol>
-            <li><a href="index.html">Home</a></li>
-            <li class="current">Detalhes do Projeto</li>
+            <li><a href="index.html" data-translate="home">Home</a></li>
+            <li class="current" data-translate="project-details">Detalhes do Projeto</li>
           </ol>
         </nav>
       </div>
@@ -105,28 +117,28 @@
 
           <div class="col-lg-4">
             <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
-              <h3>Informações do Projeto</h3>
+              <h3 data-translate="project-info">Informações do Projeto</h3>
               <ul>
-                <li><strong>Categoria</strong>: Desenvolvimento Web</li>
-                <li><strong>Cliente</strong>: Projeto Pessoal</li>
-                <li><strong>Data do Projeto</strong>: Janeiro, 2024</li>
-                <li><strong>URL do Projeto</strong>: <a href="calculadoras/index.html">Acessar Calculadoras</a></li>
+                <li><strong data-translate="category">Categoria</strong>: <span data-translate="web-development">Desenvolvimento Web</span></li>
+                <li><strong data-translate="client">Cliente</strong>: <span data-translate="personal-project">Projeto Pessoal</span></li>
+                <li><strong data-translate="project-date">Data do Projeto</strong>: <span data-translate="january-2024">Janeiro, 2024</span></li>
+                <li><strong data-translate="project-url">URL do Projeto</strong>: <a href="calculadoras/index.html" data-translate="access-calculators">Acessar Calculadoras</a></li>
               </ul>
             </div>
             <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
-              <h2>Calculadora de Métricas Digitais</h2>
-              <p>
+              <h2 data-translate="calculator-title">Calculadora de Métricas Digitais</h2>
+              <p data-translate="project-description">
                 Este projeto foi desenvolvido para auxiliar profissionais de marketing digital a calcularem métricas importantes de forma rápida e precisa. Inclui calculadoras para:
               </p>
               <ul>
-                <li>ROI (Return on Investment)</li>
-                <li>CPC (Custo por Clique)</li>
-                <li>CPM (Custo por Mil Impressões)</li>
-                <li>CTR (Click-Through Rate)</li>
-                <li>Taxa de Conversão</li>
-                <li>E outras métricas essenciais</li>
+                <li data-translate="metric-roi">ROI (Return on Investment)</li>
+                <li data-translate="metric-cpc">CPC (Custo por Clique)</li>
+                <li data-translate="metric-cpm">CPM (Custo por Mil Impressões)</li>
+                <li data-translate="metric-ctr">CTR (Click-Through Rate)</li>
+                <li data-translate="metric-conversion">Taxa de Conversão</li>
+                <li data-translate="metric-others">E outras métricas essenciais</li>
               </ul>
-              <p>
+              <p data-translate="tech-description">
                 Desenvolvido com HTML, CSS e JavaScript, o projeto possui interface intuitiva e responsiva, facilitando o acesso em qualquer dispositivo.
               </p>
             </div>
@@ -165,6 +177,7 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/translations.js"></script>
 
   <script>
     new Swiper('.portfolio-details-slider', {
@@ -195,6 +208,127 @@
             }
         }
     });
+  </script>
+
+  <script>
+    const translations = {
+        'pt-BR': {
+            'calculator-title': 'Calculadora de Métricas Digitais',
+            'project-details': 'Detalhes do Projeto',
+            'project-info': 'Informações do Projeto',
+            'category': 'Categoria',
+            'web-development': 'Desenvolvimento Web',
+            'client': 'Cliente',
+            'personal-project': 'Projeto Pessoal',
+            'project-date': 'Data do Projeto',
+            'january-2024': 'Janeiro, 2024',
+            'project-url': 'URL do Projeto',
+            'access-calculators': 'Acessar Calculadoras',
+            'project-description': 'Este projeto foi desenvolvido para auxiliar profissionais de marketing digital a calcularem métricas importantes de forma rápida e precisa. Inclui calculadoras para:',
+            'metric-roi': 'ROI (Return on Investment)',
+            'metric-cpc': 'CPC (Custo por Clique)',
+            'metric-cpm': 'CPM (Custo por Mil Impressões)',
+            'metric-ctr': 'CTR (Click-Through Rate)',
+            'metric-conversion': 'Taxa de Conversão',
+            'metric-others': 'E outras métricas essenciais',
+            'tech-description': 'Desenvolvido com HTML, CSS e JavaScript, o projeto possui interface intuitiva e responsiva, facilitando o acesso em qualquer dispositivo.'
+        },
+        'en-US': {
+            'calculator-title': 'Digital Metrics Calculator',
+            'project-details': 'Project Details',
+            'project-info': 'Project Information',
+            'category': 'Category',
+            'web-development': 'Web Development',
+            'client': 'Client',
+            'personal-project': 'Personal Project',
+            'project-date': 'Project Date',
+            'january-2024': 'January, 2024',
+            'project-url': 'Project URL',
+            'access-calculators': 'Access Calculators',
+            'project-description': 'This project was developed to help digital marketing professionals calculate important metrics quickly and accurately. It includes calculators for:',
+            'metric-roi': 'ROI (Return on Investment)',
+            'metric-cpc': 'CPC (Cost per Click)',
+            'metric-cpm': 'CPM (Cost per Thousand Impressions)',
+            'metric-ctr': 'CTR (Click-Through Rate)',
+            'metric-conversion': 'Conversion Rate',
+            'metric-others': 'And other essential metrics',
+            'tech-description': 'Developed with HTML, CSS and JavaScript, the project has an intuitive and responsive interface, making it easy to access on any device.'
+        },
+        'es-ES': {
+            'calculator-title': 'Calculadora de Métricas Digitales',
+            'project-details': 'Detalles del Proyecto',
+            'project-info': 'Información del Proyecto',
+            'category': 'Categoría',
+            'web-development': 'Desarrollo Web',
+            'client': 'Cliente',
+            'personal-project': 'Proyecto Personal',
+            'project-date': 'Fecha del Proyecto',
+            'january-2024': 'Enero, 2024',
+            'project-url': 'URL del Proyecto',
+            'access-calculators': 'Acceder a Calculadoras',
+            'project-description': 'Este proyecto fue desarrollado para ayudar a los profesionales del marketing digital a calcular métricas importantes de forma rápida y precisa. Incluye calculadoras para:',
+            'metric-roi': 'ROI (Retorno de Inversión)',
+            'metric-cpc': 'CPC (Costo por Clic)',
+            'metric-cpm': 'CPM (Costo por Mil Impresiones)',
+            'metric-ctr': 'CTR (Tasa de Clics)',
+            'metric-conversion': 'Tasa de Conversión',
+            'metric-others': 'Y otras métricas esenciales',
+            'tech-description': 'Desarrollado con HTML, CSS y JavaScript, el proyecto tiene una interfaz intuitiva y responsiva, facilitando el acceso desde cualquier dispositivo.'
+        }
+    };
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const languageFlags = document.querySelectorAll('.language-flag');
+        
+
+        const savedLanguage = localStorage.getItem('preferredLanguage') || 'pt-BR';
+        updatePageLanguage(savedLanguage);
+        
+
+        languageFlags.forEach(flag => {
+            if (flag.getAttribute('data-lang') === savedLanguage) {
+                flag.classList.add('active');
+            } else {
+                flag.classList.remove('active');
+            }
+        });
+        
+
+        languageFlags.forEach(flag => {
+            flag.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                languageFlags.forEach(f => f.classList.remove('active'));
+
+                this.classList.add('active');
+
+                const lang = this.getAttribute('data-lang');
+                updatePageLanguage(lang);
+            });
+        });
+    });
+
+    function updatePageLanguage(lang) {
+
+        document.querySelectorAll('[data-translate]').forEach(element => {
+            const key = element.getAttribute('data-translate');
+            if (translations[lang] && translations[lang][key]) {
+                element.textContent = translations[lang][key];
+            }
+        });
+
+        document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
+            const key = element.getAttribute('data-translate-placeholder');
+            if (translations[lang] && translations[lang][key]) {
+                element.placeholder = translations[lang][key];
+            }
+        });
+
+
+        localStorage.setItem('preferredLanguage', lang);
+    }
   </script>
 
 </body>
