@@ -817,10 +817,15 @@ section,
 .portfolio .portfolio-content {
   position: relative;
   overflow: hidden;
+  height: 300px;
 }
 
 .portfolio .portfolio-content img {
   transition: 0.3s;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .portfolio .portfolio-content .portfolio-info {
